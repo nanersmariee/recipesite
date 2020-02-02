@@ -17,7 +17,42 @@ class Recipe(db.Model):
                           )
     directions = db.Column(db.String(100), nullable=False, unique=False,)
     ratings = db.Column(db.Integer, nullable=True, unique=False,)
-    prep_time = db.Column(db.Integer, nullable=False, )
+    prep_time = db.Column(db.Integer, nullable=False, unique=False,)
+    cook_time = db.Column(db.Integer, nullable=False, unique=False,)
+    cuisine = db.Columng(db.String(25), nullable=False, unique=False,)
+    #can i put multiple cuisines into this column, Ex: Asian, Filipino
+
+class Ingredent(db.Model):
+    """Individual ingredients from a comprehensive list"""
+
+    __tablename__ = 'ingredients'
+
+    ingredient_id = db.Column(db.Integer,
+                              primary_key=True,
+                              autoincrement=True,
+                              )
+    name = db.Column(db.String(25), nullable=False, unique=True,)
+
+class Recipe_Ingredient(db.Model):
+    """Ingredients from Recipes"""
+
+    __tablename__ = recipe_ingredients
+
+    recipe_ingredients_id = db.Column(db.Integer,
+                                      primary_key=True,
+                                      autoincrement=True,
+                                      )
+    ingredient_id = db.Column(db.Integer,
+                              db.ForeignKey('ingredients.ingredient_id')
+                              nullable=False,
+                              unique=True,
+                              )
+    recipe_id = db.Column(db.Integer,
+                          db.ForeignKey('recipes.recipe_id'),
+                          nullable=False,
+                          unique=False,
+                          )
+    #check for uniques and nullables if they make sense
 
 class User(db.Model):
     """individual users"""
@@ -34,6 +69,7 @@ class User(db.Model):
 
 class Bookmark(db.Model):
     """user favorites"""
+    #do i need this table?
 
     __tablename__ = bookmarks
 
@@ -41,19 +77,12 @@ class Bookmark(db.Model):
                             primary_key=True,
                             autoincrement=True,
                             )
-    recipe_id = db.Column(db.Integer,db.ForeignKey('')
-        )
+    recipe_id = db.Column(db.Integer,db.ForeignKey('recipes.recipe_id'),
+                          nullable=False,
+                          unique=True,
+                          )
 
-class Ingredent(db.Model):
-    """Individual ingredients of a recipe"""
 
-    __tablename__ = 'ingredients'
-
-    ingredient_id = db.Column(db.Integer,
-                              primary_key=True,
-                              autoincrement=True,
-                              )
-    name = db.Column(db.String(25), nullable=False, unique=True,)
 
 
 
