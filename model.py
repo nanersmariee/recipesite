@@ -45,7 +45,7 @@ class Recipe_Ingredient(db.Model):
     ingredient_id = db.Column(db.Integer,
                               db.ForeignKey('ingredients.ingredient_id')
                               nullable=False,
-                              unique=True,
+                              unique=False,
                               )
     recipe_id = db.Column(db.Integer,
                           db.ForeignKey('recipes.recipe_id'),
@@ -67,20 +67,20 @@ class User(db.Model):
     bookmarks = db.Column(db.String(24), nullable=True, unique=True,)
 
 
-class Bookmark(db.Model):
-    """user favorites"""
-    #do i need this table?
+# class Bookmark(db.Model):
+#     """user favorites"""
+#     #do i need this table?
 
-    __tablename__ = bookmarks
+#     __tablename__ = bookmarks
 
-    bookmark_id = db.Column(db.Integer,
-                            primary_key=True,
-                            autoincrement=True,
-                            )
-    recipe_id = db.Column(db.Integer,db.ForeignKey('recipes.recipe_id'),
-                          nullable=False,
-                          unique=True,
-                          )
+#     bookmark_id = db.Column(db.Integer,
+#                             primary_key=True,
+#                             autoincrement=True,
+#                             )
+#     recipe_id = db.Column(db.Integer,db.ForeignKey('recipes.recipe_id'),
+#                           nullable=False,
+#                           unique=True,
+#                           )
 
 
 
