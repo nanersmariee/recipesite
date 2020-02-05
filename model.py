@@ -94,7 +94,7 @@ def connect_to_db(app):
     """Connect the database to the Flask app"""
 
     #need to name database something
-    #app.config["SQLALCHEMY_DATABASE_URI"] = 'postegresql:///'
+    app.config["SQLALCHEMY_DATABASE_URI"] = 'recipesite'
     app.config["SQLALCHEMY_ECHO"] = False 
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 

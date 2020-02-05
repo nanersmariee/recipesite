@@ -1,6 +1,6 @@
 from flask import Flask, redirect, request, render_template, session, flash
 from flask_debugtoolbar import DebugToolbarExtension
-from jinja2 import Strict Undefined
+from jinja2 import StrictUndefined
 
 
 app = Flask(__name__)
@@ -14,4 +14,4 @@ app.secret_key = "adobo"
 def begin_homepage():
     """Homepage"""
 
-    return render_template
+    return render_template('homepage.html')
