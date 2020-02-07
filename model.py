@@ -63,8 +63,9 @@ class User(db.Model):
                         primary_key=True,
                         autoincrement=True,
                         )
-    email = db.Column(db.String(25), nullable=False, unique=True,)
-    bookmarks = db.Column(db.String(24), nullable=True, unique=True,)
+    email = db.Column(db.String(25), nullable=False, unique=True)
+    password = db.Column(db.String(25), nullable=False, unique=False)
+    # bookmarks = db.Column(db.String(24), nullable=True, unique=True,)
 
 
 # class Bookmark(db.Model):
