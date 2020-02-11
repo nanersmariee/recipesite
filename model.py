@@ -15,14 +15,15 @@ class Recipe(db.Model):
                           primary_key=True,
                           autoincrement=True,
                           )
+    recipe_name = db.Column(db.String(100), nullable=False, unique=False,)
     directions = db.Column(db.String(100), nullable=False, unique=False,)
     ratings = db.Column(db.Integer, nullable=True, unique=False,)
     prep_time = db.Column(db.Integer, nullable=False, unique=False,)
     cook_time = db.Column(db.Integer, nullable=False, unique=False,)
-    cuisine = db.Columng(db.String(25), nullable=False, unique=False,)
+    cuisine = db.Column(db.String(25), nullable=False, unique=False,)
     #can i put multiple cuisines into this column, Ex: Asian, Filipino
 
-class Ingredent(db.Model):
+class Ingredient(db.Model):
     """Individual ingredients from a comprehensive list"""
 
     __tablename__ = 'ingredients'
@@ -36,14 +37,14 @@ class Ingredent(db.Model):
 class Recipe_Ingredient(db.Model):
     """Ingredients from Recipes"""
 
-    __tablename__ = recipe_ingredients
+    __tablename__ = 'recipe_ingredients'
 
     recipe_ingredients_id = db.Column(db.Integer,
                                       primary_key=True,
                                       autoincrement=True,
                                       )
     ingredient_id = db.Column(db.Integer,
-                              db.ForeignKey('ingredients.ingredient_id')
+                              db.ForeignKey('ingredients.ingredient_id'),
                               nullable=False,
                               unique=False,
                               )
@@ -95,7 +96,7 @@ def connect_to_db(app):
     """Connect the database to the Flask app"""
 
     #need to name database something
-    app.config["SQLALCHEMY_DATABASE_URI"] = 'recipesite'
+    app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql:///recipesite'
     app.config["SQLALCHEMY_ECHO"] = False 
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
