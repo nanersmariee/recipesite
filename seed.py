@@ -17,10 +17,10 @@ def load_recipes():
         row = row.rstrip()
         items = row.split("|")
 
-        recipe_id = items[0]
+        recipe_id = int(items[0])
         recipe_name = items[1]
         directions = items[2]
-        ratings = items[3]
+        ratings = int(items[3])
         prep_time = items[4]
         cook_time = items[5]
         cuisine = items[6]
@@ -45,7 +45,7 @@ def load_users():
     #prevents duplicate user adding
     User.query.delete
 
-    for row in open("seed_data/user_data");
+    for row in open("seed_data/user_data"):
         row = row.rstrip()
         items = row.split("|")
 
@@ -60,3 +60,12 @@ def load_users():
         db.session.add(user)
 
     db.session.commit()
+
+if __name__ == "__main__":
+    connect_to_db(app)
+
+    # In case tables haven't been created, create them
+    db.create_all()
+
+    load_recipes()
+    load_users()

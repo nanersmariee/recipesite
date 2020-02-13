@@ -6,7 +6,7 @@ from model import connect_to_db, db, Recipe, Ingredient, Recipe_Ingredient, User
 
 app = Flask(__name__)
 app.jinja_env.undefined = StrictUndefined
-app.jinja_env.auto_reload = True
+# app.jinja_env.auto_reload = True 
 
 #Required to use Flask sessions and the debug toolbar
 app.secret_key = "adobo"
@@ -31,6 +31,12 @@ def recipe_list():
 
 if __name__ == "__main__":
     app.debug = True
+    app.jinja_env.auto_reload = app.debug
+
+    connect_to_db(app)
+    # DebugToolbarExtension(app)
+
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
     app.run(host="0.0.0.0")
+
