@@ -28,6 +28,11 @@ def recipe_list():
     return render_template('recipe_list.html',
                             recipes=recipes)
 
+@app.route('/enter-recipe')
+def enter_recipe():
+    """Allows user to enter a recipe"""
+
+    return render_template('enter_recipe.html')
 
 if __name__ == "__main__":
     app.debug = True

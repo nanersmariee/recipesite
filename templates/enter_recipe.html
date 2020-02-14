@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %} Recipes {% endblock %}
+
+
+{% block content %}
+
+<div>  
+  <form>
+    <h1>Enter Your Recipe Details:</h1>
+    <br>
+    <label>Recipe Name</label>
+    <br>
+    <input type="text" name="Recipe Name">
+    <br>
+    <br>
+
+    <label>Directions</label>
+    <br>
+    <textarea name="about-me"></textarea>
+    <br>
+  </form>
+  
+  <form>
+  Prep Time:
+
+  <select name="lang">
+      <option value="python">15 min</option>
+      <option value="javascript">30 min</option>
+      <option value="ruby">1 hour</option>
+      <option value="ruby">1.5 hour</option>
+      <option value="ruby">2 hours</option>
+      <option value="ruby">3 hours</option>
+      <option value="ruby">4+ hours</option>
+    </select>
+  </form>
+    <br>
+<form>
+  Cook Time:
+
+  <select name="lang">
+    <option value="python">15 min</option>
+    <option value="javascript">30 min</option>
+    <option value="ruby">1 hours</option>
+    <option value="ruby">1.5 hours</option>
+    <option value="ruby">2 hours</option>
+    <option value="ruby">3 hours</option>
+    <option value="ruby">4+ hours</option>
+  </select>
+</form>
+
+ <br>
+
+  <form>
+    <label>Cuisine</label>
+    <input type="checkbox" name="Cuisine" value="filipino">
+    <label>Filipino</label>
+
+    <input type="checkbox" name="Cuisine" value="american">
+    <label>American</label>
+
+    <input type="checkbox" name="Cuisine" value="mexican">
+    <label>Mexican</label>
+
+    <input type="checkbox" name="Cuisine" value="greek">
+    <label>Greek</label>
+
+    <input type="checkbox" name="Cuisine" value="asian">
+    <label>Asian</label>
+
+    <input type="checkbox" name="Cuisine" value="mediterranean">
+    <label>Mediterranean</label>
+
+    <input type="checkbox" name="Cuisine" value="Latin">
+    <label>Latin</label>
+
+    <input type="checkbox" name="Cuisine" value="cuban">
+    <label>Cuban</label>
+
+    <input type="checkbox" name="Cuisine" value="chinese">
+    <label>Chinese</label>
+    <br>
+  </form>
+
+ 
+
+    <br>
+    <input type="submit">
+
+
+</div>
+
+
+{% endblock %}
