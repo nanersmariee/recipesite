@@ -28,11 +28,32 @@ def recipe_list():
     return render_template('recipe_list.html',
                             recipes=recipes)
 
-@app.route('/enter-recipe')
+@app.route('/enter-recipe', methods=['GET'])
 def enter_recipe():
-    """Allows user to enter a recipe"""
+    """Shows a form for a user to enter a recipe"""
 
     return render_template('enter_recipe.html')
+
+@app.route('/enter-recipe', methods=['POST'])
+def recipe_entered():
+    """Adds a recipe that a user entered into the recipe directory"""
+
+    recipe_name = request.form.get('recipe_name')
+    directions = request.form.get('directions')
+    prep_time = request.form.get('prep_time')
+    cook_time = request.form.get('cook_time')
+    cuisine = request.form.get('cuisine')
+
+    recipe = Recipe(recipe_name=recipe_name,
+                    directions=directions,
+                    prep_time=prep_time,
+                    cook_time=cook_time,
+                    cuisine=cuisine)
+
+    db.session.add(recipe)
+    db.session.commit()
+
+    return redirect('/')
 
 if __name__ == "__main__":
     app.debug = True

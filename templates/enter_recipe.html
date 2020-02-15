@@ -8,51 +8,52 @@
 <div>  
   <form>
     <h1>Enter Your Recipe Details:</h1>
-    <br>
+    
     <label>Recipe Name</label>
     <br>
-    <input type="text" name="Recipe Name">
+    <input type="text" name="recipe_name">
     <br>
     <br>
 
     <label>Directions</label>
     <br>
-    <textarea name="about-me"></textarea>
+    <textarea name="directions"></textarea>
     <br>
+    <br>
+
   </form>
   
   <form>
   Prep Time:
+  <select name="prep_time">
+      <option value="duration">15 min</option>
+      <option value="duration">30 min</option>
+      <option value="duration">45 min</option>
+      <option value="duration">1 hour</option>
+      <option value="duration">1.5 hour</option>
+      <option value="duration">2 hours</option>
+      <option value="duration">3 hours</option>
+      <option value="duration">4+ hours</option>
+    </select>
 
-  <select name="lang">
-      <option value="python">15 min</option>
-      <option value="javascript">30 min</option>
-      <option value="ruby">1 hour</option>
-      <option value="ruby">1.5 hour</option>
-      <option value="ruby">2 hours</option>
-      <option value="ruby">3 hours</option>
-      <option value="ruby">4+ hours</option>
+  Cook Time:
+  <select name="cook_time">
+      <option value="duration">15 min</option>
+      <option value="duration">30 min</option>
+      <option value="duration">45 min</option>
+      <option value="duration">1 hour</option>
+      <option value="duration">1.5 hour</option>
+      <option value="duration">2 hours</option>
+      <option value="duration">3 hours</option>
+      <option value="duration">4+ hours</option>
     </select>
   </form>
-    <br>
-<form>
-  Cook Time:
-
-  <select name="lang">
-    <option value="python">15 min</option>
-    <option value="javascript">30 min</option>
-    <option value="ruby">1 hours</option>
-    <option value="ruby">1.5 hours</option>
-    <option value="ruby">2 hours</option>
-    <option value="ruby">3 hours</option>
-    <option value="ruby">4+ hours</option>
-  </select>
-</form>
 
  <br>
 
   <form>
     <label>Cuisine</label>
+    <br>
     <input type="checkbox" name="Cuisine" value="filipino">
     <label>Filipino</label>
 
@@ -71,7 +72,7 @@
     <input type="checkbox" name="Cuisine" value="mediterranean">
     <label>Mediterranean</label>
 
-    <input type="checkbox" name="Cuisine" value="Latin">
+    <input type="checkbox" name="Cuisine" value="latin">
     <label>Latin</label>
 
     <input type="checkbox" name="Cuisine" value="cuban">
