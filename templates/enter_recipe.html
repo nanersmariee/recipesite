@@ -5,11 +5,11 @@
 
 {% block content %}
 
+ <h1>Enter Your Recipe Details:</h1>
+
 <div>  
-  <form>
-    <h1>Enter Your Recipe Details:</h1>
-    
-    <label>Recipe Name</label>
+  <form action="/enter-recipe" method="POST">
+    Recipe Name
     <br>
     <input type="text" name="recipe_name">
     <br>
@@ -20,73 +20,74 @@
     <textarea name="directions"></textarea>
     <br>
     <br>
-
-  </form>
   
-  <form>
-  Prep Time:
-  <select name="prep_time">
-      <option value="duration">15 min</option>
-      <option value="duration">30 min</option>
-      <option value="duration">45 min</option>
-      <option value="duration">1 hour</option>
-      <option value="duration">1.5 hour</option>
-      <option value="duration">2 hours</option>
-      <option value="duration">3 hours</option>
-      <option value="duration">4+ hours</option>
+    <div>
+    Prep Time:
+    <select name="prep-time">
+      <option value="15 min">15 min</option>
+      <option value="30 min">30 min</option>
+      <option value="45 min">45 min</option>
+      <option value="1 hour">1 hour</option>
+      <option value="1.5 hours">1.5 hour</option>
+      <option value="2 hours">2 hours</option>
+      <option value="3 hours">3 hours</option>
+      <option value="4+ hours">4+ hours</option>
     </select>
+    </div>
 
-  Cook Time:
-  <select name="cook_time">
-      <option value="duration">15 min</option>
-      <option value="duration">30 min</option>
-      <option value="duration">45 min</option>
-      <option value="duration">1 hour</option>
-      <option value="duration">1.5 hour</option>
-      <option value="duration">2 hours</option>
-      <option value="duration">3 hours</option>
-      <option value="duration">4+ hours</option>
+    <div>
+    Cook Time:
+    <select name="cook-time">
+      <option value="15 min">15 min</option>
+      <option value="30 min">30 min</option>
+      <option value="45 min">45 min</option>
+      <option value="1 hour">1 hour</option>
+      <option value="1.5 hours">1.5 hour</option>
+      <option value="2 hours">2 hours</option>
+      <option value="2.5 hours">3 hours</option>
+      <option value="4+ hours">4+ hours</option>
     </select>
-  </form>
+    </div>
 
- <br>
-
-  <form>
-    <label>Cuisine</label>
     <br>
-    <input type="checkbox" name="Cuisine" value="filipino">
+
+    <br>
+    Cuisine:
+    <input type="checkbox" name="cuisine" value="Filipino">
     <label>Filipino</label>
 
-    <input type="checkbox" name="Cuisine" value="american">
+    <input type="checkbox" name="cuisine" value="American">
     <label>American</label>
 
-    <input type="checkbox" name="Cuisine" value="mexican">
+    <input type="checkbox" name="cuisine" value="Mexican">
     <label>Mexican</label>
 
-    <input type="checkbox" name="Cuisine" value="greek">
+    <input type="checkbox" name="cuisine" value="Greek">
     <label>Greek</label>
 
-    <input type="checkbox" name="Cuisine" value="asian">
+    <input type="checkbox" name="cuisine" value="Asian">
     <label>Asian</label>
 
-    <input type="checkbox" name="Cuisine" value="mediterranean">
+    <input type="checkbox" name="cuisine" value="Mediterranean">
     <label>Mediterranean</label>
 
-    <input type="checkbox" name="Cuisine" value="latin">
+    <input type="checkbox" name="cuisine" value="latin">
     <label>Latin</label>
 
-    <input type="checkbox" name="Cuisine" value="cuban">
+    <input type="checkbox" name="cuisine" value="cuban">
     <label>Cuban</label>
 
-    <input type="checkbox" name="Cuisine" value="chinese">
+    <input type="checkbox" name="cuisine" value="chinese">
     <label>Chinese</label>
     <br>
-  </form>
+  
 
  
 
     <br>
-    <input type="submit">
+    
+      <input type="submit" value="Enter Recipe!">
+    </form>
 
 
 </div>

@@ -25,8 +25,7 @@ def load_recipes():
         cook_time = items[5]
         cuisine = items[6]
 
-        recipe = Recipe(recipe_id=recipe_id,
-                        recipe_name=recipe_name,
+        recipe = Recipe(recipe_name=recipe_name,
                         directions=directions,
                         ratings=ratings,
                         prep_time=prep_time,

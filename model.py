@@ -16,7 +16,7 @@ class Recipe(db.Model):
                           autoincrement=True,
                           )
     recipe_name = db.Column(db.String(100), nullable=False, unique=False,)
-    directions = db.Column(db.String(100), nullable=False, unique=False,)
+    directions = db.Column(db.String(5000), nullable=False, unique=False,)
     ratings = db.Column(db.Integer, nullable=True, unique=False,)
     prep_time = db.Column(db.String(25), nullable=False, unique=False,)
     cook_time = db.Column(db.String(25), nullable=False, unique=False,)
@@ -97,8 +97,8 @@ def connect_to_db(app):
 
     #need to name database something
     app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql:///recipesite'
-    #app.config["SQLALCHEMY_ECHO"] = False 
-    #app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config["SQLALCHEMY_ECHO"] = False 
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.app = app
     db.init_app(app)

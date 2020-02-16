@@ -40,8 +40,8 @@ def recipe_entered():
 
     recipe_name = request.form.get('recipe_name')
     directions = request.form.get('directions')
-    prep_time = request.form.get('prep_time')
-    cook_time = request.form.get('cook_time')
+    prep_time = request.form.get('prep-time')
+    cook_time = request.form.get('cook-time')
     cuisine = request.form.get('cuisine')
 
     recipe = Recipe(recipe_name=recipe_name,
