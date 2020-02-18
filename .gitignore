@@ -1,2 +1,8 @@
-secrests.py
+env
+env/
+/env
+
+secret.py
+gameplan.py
+secrets.py
 secrets.sh

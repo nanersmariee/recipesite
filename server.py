@@ -20,6 +20,25 @@ def begin_homepage():
     # pass recipe info down to template 
     return render_template('homepage.html')
 
+@app.route('/search-recipes')
+def search_recipes():
+    """Search recipes by ingredient"""
+
+
+    url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients'
+    payload = {'apikey': SPOONACULAR_API,
+               'keyword': keyword,
+               'postalcode': postalcode,
+               'radius': radius,
+               'unit': unit,
+               'sort': sort}
+
+    response = requests.get(url, params=payload)
+
+    data = response.json()
+    
+
+
 @app.route('/recipes')
 def recipe_list():
     """Show a list of recipes"""
