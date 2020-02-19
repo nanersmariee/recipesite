@@ -24,18 +24,30 @@ def begin_homepage():
 def search_recipes():
     """Search recipes by ingredient"""
 
+    ingredients = request.args.get('ingredients', '')
+    num_recipes =request.args.get('num_recipes', '')
 
+
+    headers = ({
+        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        "x-rapidapi-key": "SPOONACULAR_API"
+        })
     url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients'
-    payload = {'apikey': SPOONACULAR_API,
-               'keyword': keyword,
-               'postalcode': postalcode,
-               'radius': radius,
-               'unit': unit,
-               'sort': sort}
+    payload = {'apiKey': SPOONACULAR_API,
+               'ingredients': ingredients,
+               'num_recipes': num_recipes}
 
-    response = requests.get(url, params=payload)
+    response = requests.get(url, 
+                            params=payload, 
+                            headers=headers)
 
     data = response.json()
+    #events = data['_embedded']['events']
+
+    return render_template('search-results.html',
+                            pformat=pformat,
+                            data=data,
+                            results=events)
     
 
 
