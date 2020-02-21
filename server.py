@@ -58,6 +58,7 @@ def search_recipes():
     return render_template('search-results.html',
                             pformat=pformat,
                             data=data,
+                            ingredients=ingredients,
                             results=data)
     
 

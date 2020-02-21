@@ -1,2 +1,27 @@
-{{ pformat(data[0]) }}
+<h2>Recipes with {{ ingredients }}</h2>
+
+{{ data[0] }}
+
+<br>
+<br>
+
+{% for recipe in data %}
+    
+
+    <div>
+    <h3>{{ recipe['title'] }}</h3>
+    <img src= {{ recipe['image'] }}>
+   
+    </div>
+   
+
+<br>
+{% endfor %}
+
+
+
+
+
+
+
 
