@@ -1,6 +1,8 @@
 from flask import Flask, redirect, request, render_template, session, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from jinja2 import StrictUndefined
+import os, requests
+from pprint import pformat
 
 from model import connect_to_db, db, Recipe, Ingredient, Recipe_Ingredient, User
 
@@ -11,6 +13,8 @@ app.jinja_env.undefined = StrictUndefined
 #Required to use Flask sessions and the debug toolbar
 app.secret_key = "adobo"
 
+API_KEY = os.environ['SPOONACULAR_KEY']
+
 @app.route('/')
 def begin_homepage():
     """Homepage"""
@@ -20,34 +24,41 @@ def begin_homepage():
     # pass recipe info down to template 
     return render_template('homepage.html')
 
-@app.route('/search-recipes')
+
+@app.route('/ingredients')
+def show_ingredients_form():
+    """search recipes by entering ingredients in form"""
+
+    return render_template('search-form.html')
+
+@app.route('/ingredients/search')
 def search_recipes():
     """Search recipes by ingredient"""
 
-    ingredients = request.args.get('ingredients', '')
-    num_recipes =request.args.get('num_recipes', '')
-
-
+    ingredients = request.args.get('ingredients')
+    num_recipes =request.args.get('num_recipes')
+    
     headers = ({
         "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-        "x-rapidapi-key": "SPOONACULAR_API"
+        "x-rapidapi-key": API_KEY
         })
+    
     url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients'
-    payload = {'apiKey': SPOONACULAR_API,
+    payload = {'apiKey': API_KEY,
                'ingredients': ingredients,
                'num_recipes': num_recipes}
 
     response = requests.get(url, 
                             params=payload, 
                             headers=headers)
-
+    print(response)
     data = response.json()
     #events = data['_embedded']['events']
 
     return render_template('search-results.html',
                             pformat=pformat,
                             data=data,
-                            results=events)
+                            results=data)
     
 
 
