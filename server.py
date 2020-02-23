@@ -31,6 +31,12 @@ def show_ingredients_form():
 
     return render_template('search-form.html')
 
+@app.route('/recipes/<id>')
+def show_recipe_details(id):
+
+    recipe_id = request.args.get('id')
+    url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{id}/information'
+
 @app.route('/ingredients/search')
 def search_recipes():
     """Search recipes by ingredient"""
@@ -44,6 +50,8 @@ def search_recipes():
         })
     
     url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients'
+    
+
     payload = {'apiKey': API_KEY,
                'ingredients': ingredients,
                'num_recipes': num_recipes}
@@ -53,7 +61,7 @@ def search_recipes():
                             headers=headers)
     print(response)
     data = response.json()
-    #events = data['_embedded']['events']
+    #get id
 
     return render_template('search-results.html',
                             pformat=pformat,
@@ -65,7 +73,7 @@ def search_recipes():
 
 @app.route('/recipes')
 def recipe_list():
-    """Show a list of recipes"""
+    """Show a list of user recipes"""
 
     recipes = Recipe.query.all()
     return render_template('recipe_list.html',
