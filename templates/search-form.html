@@ -1,10 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %} Recipes {% endblock %}
 
 
-
+{% block content %}
 
 
 <h2>Search for Recipes</h2>
-    <form method="GET" action="/ingredients/search">
+    <form action="/ingredients/search" method="POST">
       
       <input type="text" name="ingredients">
 
@@ -14,3 +17,6 @@
 
 
     </form>
+
+{% endblock %}
+

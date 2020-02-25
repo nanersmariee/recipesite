@@ -23,6 +23,19 @@ class Recipe(db.Model):
     cuisine = db.Column(db.String(25), nullable=False, unique=False,)
     #can i put multiple cuisines into this column, Ex: Asian, Filipino
 
+class Recipe_Detail(db.Model):
+    """recipe details from api"""
+
+    __tablename__ = 'recipe_details'
+
+    recipe_id = db.Column(db.Integer,
+                                  primary_key=True,
+                                  autoincrement=True,
+                                  )
+    title = db.Column(db.String(500), nullable=False, unique=False)
+    #instructions = db.Column(db.String(5000), nullable=False, unique=False)
+    # source_url = db.Column(db.String(500), nullable=False, unique=True)
+
 class Ingredient(db.Model):
     """Individual ingredients from a comprehensive list"""
 
