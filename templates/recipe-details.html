@@ -1,27 +1,64 @@
 <h1>i'm hungry</h1>
 
-{{ data }}
+<h2> {{ data['title']}} </h2>
 
-<h2> Listed Data </h2>
+    <img src={{ data['image'] }}>
 
-    <li>{{ data['preparationMinutes'] }} </li>
+    <p>
+        <b>Summary:</b>
+        {{ data['summary'] }}
+    </p>
 
+    <li>
+        <b>Preparation Time:</b>
+        {{ data['preparationMinutes'] }} minutes
+    </li>
+    <li>
+        <b>Cooking Time:</b>
+        {{ data['cookingMinutes'] }} minutes
+    </li>
+    <li>
+        <b>Likes:</b>
+        {{ data['aggregateLikes'] }}
+    </li>
+    <li>
+        <b>Servings:</b>
+        {{ data['servings'] }}
+    </li>
+    <li>
+        <b>Diets:(</b>
+        {{ data['diets'] }})
+    </li>
+     <li>
+        <b>Dish Type:</b>
+        {{ data['dishTypes']  }}
+    </li>
+    <li>
+        <b>Cuisines:</b>
+        {{ data['cuisines']  }}
+    </li>
+    <br>
+    
+    
 
+    <p>
+      <b>Ingredients:</b>
 {% for ingredient in data['extendedIngredients'] %}
-    <li>{{ ingredient }}</li>
-    <img src= {{ ingredient['image'] }}>
-    <br>
-    {{ ingredient['originalName'] }}
-    <br>
-    {{ ingredient['metaInformation'] }}
+    
+    <li>{{ ingredient['originalString']}}</li>
+   
+
 {% endfor %}
+    <p>
+        <b>Instructions:</b>
+        {{ data['instructions'] }}
+    </p>
+
+
+<a href={{ data['sourceUrl']}}><h5>Source Link</h5></a>
+
+<h3>Test Data</h3>
+
+{{ data['extendedIngredients'] }}
 
 <br>
-<br>
-
-{{ data.keys() }}
-
-<br>
-<br>
-
-{{ data.values() }}
