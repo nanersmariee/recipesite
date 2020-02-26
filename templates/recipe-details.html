@@ -1,0 +1,27 @@
+<h1>i'm hungry</h1>
+
+{{ data }}
+
+<h2> Listed Data </h2>
+
+    <li>{{ data['preparationMinutes'] }} </li>
+
+
+{% for ingredient in data['extendedIngredients'] %}
+    <li>{{ ingredient }}</li>
+    <img src= {{ ingredient['image'] }}>
+    <br>
+    {{ ingredient['originalName'] }}
+    <br>
+    {{ ingredient['metaInformation'] }}
+{% endfor %}
+
+<br>
+<br>
+
+{{ data.keys() }}
+
+<br>
+<br>
+
+{{ data.values() }}

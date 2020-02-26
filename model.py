@@ -79,7 +79,7 @@ class User(db.Model):
                         )
     email = db.Column(db.String(25), nullable=False, unique=True)
     password = db.Column(db.String(25), nullable=False, unique=False)
-    # bookmarks = db.Column(db.String(24), nullable=True, unique=True,)
+    bookmarks = db.Column(db.String(24), nullable=True, unique=True,)
 
 
 # class Bookmark(db.Model):

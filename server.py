@@ -31,32 +31,32 @@ def show_ingredients_form():
 
     return render_template('search-form.html')
 
-# @app.route('/recipes/<id>')
-# def show_recipe_details(id):
+@app.route('/recipes/<recipe_id>')
+def show_recipe_details(recipe_id):
 
-#     recipe_id = request.args.get('id')
+    rcp_id = recipe_id
     
-#     headers({
-#     "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-#     "x-rapidapi-key": "a72747eab1msh0d1fef093b1c6cfp1679d9jsn813f570cf86c"
-#     });
+    headers = ({
+        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        "x-rapidapi-key": API_KEY
+        });
 
-#     url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{id}/information'
+    url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{}/information'.format(recipe_id)
+    print(url)
 
-#     payload = {'apiKey': API_KEY,
-#                'id': recipe_id}
+    payload = {'apiKey': API_KEY,
+               'id': rcp_id}
 
-#     response = requests.get(url,
-#                             params=payload,
-#                             headers=headers)
+    response = requests.get(url,
+                            params=payload,
+                            headers=headers)
 
-#     print(response)
-#     data = response.json()
+    data = response.json()
 
-#     return render_template('recipe-details.html',
-#                            pformat=pformat,
-#                            data=data,
-#                            id=recipe_id)
+    return render_template('recipe-details.html',
+                           data=data,
+                           id=rcp_id)
+
 
 @app.route('/ingredients/search')
 def search_recipes():
@@ -93,36 +93,6 @@ def search_recipes():
                             results=data,
                             recipe_id=recipe_id,
                             recipe_title=recipe_title)
-
-# @app.route('/ingredients/search', methods=['POST'])
-# def recipe_searched():
-#     """stores recipe search into db"""
-#     ingredients = request.args.get()
-#     recipe_id = request.args.get('recipe_id')
-#     recipe_title = request.args.get('recipe_title')
-
-#     recipe_in_database = Recipe_Detail.query.filter_by(recipe_id=recipe_id).first()
-
-    
-
-#     if not recipe_in_database:
-#         recipe = Recipe_Detail(recipe_id=recipe_id,
-#                                recipe_title=recipe_title)       
-    
-#         db.session.add(recipe)
-#         db.session.commit()
-
-#     return redirect('/')
-
-
-# @app.route('/ingredients/search' methods=['POST'])
-# def store_searched_recipes():
-#     """Store the searched recipes into the db"""
-
-#     recipe_details_id = 
-#     title = 
-#     source_url =
-
 
 
 @app.route('/recipes')
@@ -171,3 +141,5 @@ if __name__ == "__main__":
     # DebugToolbarExtension(app)
     app.run(host="0.0.0.0")
 
+#ignore me
+#<a href="/recipes/{{ data[0]['id'] }}">
