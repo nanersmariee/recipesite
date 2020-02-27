@@ -7,14 +7,47 @@
 
 <h1>i'm hungry</h1>
 
-<h2> {{ data['title']}} </h2>
+<h2> {{ data['title'] }} </h2>
 
-    <img src={{ data['image'] }}>
-    <button onclick="addFavorite()">Favorite</button>
+    <div>
+      <img src={{ data['image'] }}>
+        <form action="/bookmark" method="POST">
+          <input type="hidden" name="api_recipe_id" value= "{{ id }}">
+          <input type="submit" value="Bookmark Me!">
+        </form>
+    </div>
+
+  <ul>
+    
+    <h2>Here's what you'll need:</h2>
+    
+    <div>
+        {% for ingredient in data['extendedIngredients'] %}
+            <span>
+                <img src= 'https://spoonacular.com/cdn/ingredients_100x100/{{  ingredient['image'] }}'>
+                  {{ ingredient['name']}}            
+            </span>
+        {% endfor %}
+    </div>
+
+
+    <div>
+      {% for ingredient in data['extendedIngredients'] %}
+              <span>
+                <figure>
+                  <img src="https://spoonacular.com/cdn/ingredients_100x100/{{  ingredient['image'] }}">
+                   <figcaption>{{ ingredient['name']}}</figcaption> 
+                </figure>           
+              </span>
+        {% endfor %}
+</div>
+
+
+
 
     <p>
         <b>Summary:</b>
-        {{ data['summary'] }}
+        {{ summary }}
     </p>
 
     <li>
@@ -53,7 +86,10 @@
       <b>Ingredients:</b>
 {% for ingredient in data['extendedIngredients'] %}
     
-    <li>{{ ingredient['originalString']}}</li>
+    <div>
+        <img src= 'https://spoonacular.com/cdn/ingredients_100x100/{{  ingredient['image'] }}'>
+        <li>{{ ingredient['originalString']}}</li>
+    </div>
    
 
 {% endfor %}
@@ -72,17 +108,6 @@
 <br>
 
 <script>
-    
-function addFavorite() {
-    console.log('hello');
-}
-
-$.ajax({
-    url: "/src/Class-Project/templates/test.py",
-    success: function(response) {
-        console.log("this is the response from the py: " + response);
-    }
-})
 </script> 
 
 {% endblock %}

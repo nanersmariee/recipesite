@@ -3,6 +3,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from jinja2 import StrictUndefined
 import os, requests
 from pprint import pformat
+import re
 
 from model import connect_to_db, db, Recipe, Ingredient, Recipe_Ingredient, User, Bookmark
 
@@ -16,14 +17,29 @@ app.secret_key = "adobo"
 API_KEY = os.environ['SPOONACULAR_KEY']
 
 @app.route('/')
-def begin_homepage():
-    """Homepage"""
+def begin_at_login():
+    """Login Page"""
     # put a recipe into the db by hand
     # query database for a recipe 
     # create a template to show the recipe 
     # pass recipe info down to template 
-    return render_template('homepage.html')
+    return render_template('login-page.html')
 
+@app.route('/login', methods=['POST'])
+def authenticate_user():
+    """authenticate user"""
+
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    user_in_system = User.query.filter_by(email=email).first()
+    password_in_system = user_in_system.password 
+
+    if (password_in_system == password):
+        session['current_user'] = user_in_system.user_id
+        flash('Successfully Logged In, Homie!')
+
+    return redirect('/main-page')
 
 @app.route('/new-user', methods=['GET'])
 def show_new_user_form():
@@ -49,6 +65,30 @@ def enter_new_user_data():
 
     return redirect('/')
 
+@app.route('/main-page')
+def continue_to_main():
+    """Goes to main page after login"""
+
+    return render_template('main-page.html')
+
+@app.route('/bookmark', methods=['POST'])
+def add_bookmark():
+    """user can bookmark a recipe"""
+
+    api_recipe_id = request.form.get('api_recipe_id')
+    user_id = session['current_user']
+
+    # ingredients = (request.args.get('ingredients'))
+
+    bookmark = Bookmark(user_id=user_id,
+                        api_recipe_id=api_recipe_id,
+                        )
+    
+    db.session.add(bookmark)
+    db.session.commit()
+
+    return redirect('google.com')
+
 @app.route('/ingredients')
 def show_ingredients_form():
     """search recipes by entering ingredients in form"""
@@ -59,7 +99,8 @@ def show_ingredients_form():
 def show_recipe_details(recipe_id):
 
     rcp_id = recipe_id
-    
+    TAG_RE = re.compile(r'<[^>]+>')
+
     headers = ({
         "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
         "x-rapidapi-key": API_KEY
@@ -76,10 +117,15 @@ def show_recipe_details(recipe_id):
                             headers=headers)
 
     data = response.json()
+    summary = TAG_RE.sub('', data['summary'])
+    # preparation_time = data['preparationMinutes']
+    # cooking_time = data['cookingMinutes']
+    print(summary)
 
     return render_template('recipe-details.html',
                            data=data,
-                           id=rcp_id)
+                           id=rcp_id,
+                           summary=summary)
 
 
 @app.route('/ingredients/search')
@@ -115,7 +161,6 @@ def search_recipes():
                             data=data,
                             ingredients=ingredients,
                             results=data,
-                            recipe_id=recipe_id,
                             recipe_title=recipe_title)
 
 

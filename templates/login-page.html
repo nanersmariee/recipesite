@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} Recipes {% endblock %}
+
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+
+<body>    
+  <h2>Returning Users</h2>
+    <h3>Login Here</h3>
+
+    <form action="/login" method="POST">
+
+    Email:<input type="text" name="email"><br>
+    Password:<input type="text" name="password"><br>
+    <input type="submit" value="login">
+
+    </form>
+
+    <h2><a href="/new-user">Sign Up</a></h2>
+
+</body>
+<footer>I am a footer</footer>
+
+</html>
+
+{% endblock %}
+
+

@@ -92,11 +92,11 @@ class Bookmark(db.Model):
                             primary_key=True,
                             autoincrement=True,
                             )
-    user_id = db.Column(db.Integer, db.ForeignKey('users.recipe_id'),
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'),
                         nullable=False,
                         unique=False
                         )
-    recipe_id = db.Column(db.Integer, db.ForeignKey('recipes.recipe_id'),
+    api_recipe_id = db.Column(db.Integer,
                           nullable=False,
                           unique=False,
                           )
