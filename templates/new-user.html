@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %} Recipes {% endblock %}
+{% block content %}
+
+<h1>Enter New User Info:</h1>
+
+<form action="/new_user" method='POST'>
+
+    Email:<input type="text" name="email"><br>
+    Password<input type="text" name="password"><br>
+    <input type='submit' value='Submit'>
+
+
+
+
+{% endblock %}

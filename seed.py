@@ -48,7 +48,6 @@ def load_users():
         row = row.rstrip()
         items = row.split("|")
 
-        user_id = items[0]
         email = items[1]
         password = items[2]
 

@@ -1,8 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} Recipes {% endblock %}
+
+
+{% block content %}
+
 <h1>i'm hungry</h1>
 
 <h2> {{ data['title']}} </h2>
 
     <img src={{ data['image'] }}>
+    <button onclick="addFavorite()">Favorite</button>
 
     <p>
         <b>Summary:</b>
@@ -31,11 +39,11 @@
     </li>
      <li>
         <b>Dish Type:</b>
-        {{ data['dishTypes']  }}
+        {{ data['dishTypes'] }}
     </li>
     <li>
         <b>Cuisines:</b>
-        {{ data['cuisines']  }}
+        {{ data['cuisines'] }}
     </li>
     <br>
     
@@ -62,3 +70,19 @@
 {{ data['extendedIngredients'] }}
 
 <br>
+
+<script>
+    
+function addFavorite() {
+    console.log('hello');
+}
+
+$.ajax({
+    url: "/src/Class-Project/templates/test.py",
+    success: function(response) {
+        console.log("this is the response from the py: " + response);
+    }
+})
+</script> 
+
+{% endblock %}

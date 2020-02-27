@@ -79,28 +79,27 @@ class User(db.Model):
                         )
     email = db.Column(db.String(25), nullable=False, unique=True)
     password = db.Column(db.String(25), nullable=False, unique=False)
-    bookmarks = db.Column(db.String(24), nullable=True, unique=True,)
+    
 
 
-# class Bookmark(db.Model):
-#     """user favorites"""
-#     #do i need this table?
+class Bookmark(db.Model):
+    """user favorites"""
+    #do i need this table?
 
-#     __tablename__ = bookmarks
+    __tablename__ = 'bookmarks'
 
-#     bookmark_id = db.Column(db.Integer,
-#                             primary_key=True,
-#                             autoincrement=True,
-#                             )
-#     recipe_id = db.Column(db.Integer,db.ForeignKey('recipes.recipe_id'),
-#                           nullable=False,
-#                           unique=True,
-#                           )
-
-
-
-
-
+    bookmark_id = db.Column(db.Integer,
+                            primary_key=True,
+                            autoincrement=True,
+                            )
+    user_id = db.Column(db.Integer, db.ForeignKey('users.recipe_id'),
+                        nullable=False,
+                        unique=False
+                        )
+    recipe_id = db.Column(db.Integer, db.ForeignKey('recipes.recipe_id'),
+                          nullable=False,
+                          unique=False,
+                          )
 
 #####################################
 # Helper Functions

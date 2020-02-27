@@ -4,7 +4,7 @@ from jinja2 import StrictUndefined
 import os, requests
 from pprint import pformat
 
-from model import connect_to_db, db, Recipe, Ingredient, Recipe_Ingredient, User
+from model import connect_to_db, db, Recipe, Ingredient, Recipe_Ingredient, User, Bookmark
 
 app = Flask(__name__)
 app.jinja_env.undefined = StrictUndefined
@@ -24,6 +24,30 @@ def begin_homepage():
     # pass recipe info down to template 
     return render_template('homepage.html')
 
+
+@app.route('/new-user', methods=['GET'])
+def show_new_user_form():
+    """Shows a form to add a new user's information"""
+
+    return render_template('new-user.html')
+
+@app.route('/new_user', methods=['POST'])
+def enter_new_user_data():
+    """Enters new user information"""
+
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    user_in_db = User.query.filter_by(email=email).first()
+
+    if not user_in_db:
+        user = User(email=email,
+                    password=password)
+
+        db.session.add(user)
+        db.session.commit()
+
+    return redirect('/')
 
 @app.route('/ingredients')
 def show_ingredients_form():
