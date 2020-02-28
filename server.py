@@ -35,11 +35,13 @@ def authenticate_user():
     user_in_system = User.query.filter_by(email=email).first()
     password_in_system = user_in_system.password 
 
-    if (password_in_system == password):
+    if password_in_system == password:
         session['current_user'] = user_in_system.user_id
         flash('Successfully Logged In, Homie!')
-
-    return redirect('/main-page')
+        return redirect('/main-page')
+    else:
+        flash('Login Failed')
+        return redirect('/')
 
 @app.route('/new-user', methods=['GET'])
 def show_new_user_form():
@@ -95,39 +97,6 @@ def show_ingredients_form():
 
     return render_template('search-form.html')
 
-@app.route('/recipes/<recipe_id>')
-def show_recipe_details(recipe_id):
-
-    rcp_id = recipe_id
-    TAG_RE = re.compile(r'<[^>]+>')
-
-    headers = ({
-        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-        "x-rapidapi-key": API_KEY
-        });
-
-    url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{}/information'.format(recipe_id)
-    print(url)
-
-    payload = {'apiKey': API_KEY,
-               'id': rcp_id}
-
-    response = requests.get(url,
-                            params=payload,
-                            headers=headers)
-
-    data = response.json()
-    summary = TAG_RE.sub('', data['summary'])
-    # preparation_time = data['preparationMinutes']
-    # cooking_time = data['cookingMinutes']
-    print(summary)
-
-    return render_template('recipe-details.html',
-                           data=data,
-                           id=rcp_id,
-                           summary=summary)
-
-
 @app.route('/ingredients/search')
 def search_recipes():
     """Search recipes by ingredient"""
@@ -160,8 +129,61 @@ def search_recipes():
     return render_template('search-results.html',
                             data=data,
                             ingredients=ingredients,
-                            results=data,
+                            recipe_id=recipe_id,
                             recipe_title=recipe_title)
+
+@app.route('/recipes/<recipe_id>')
+def show_recipe_details(recipe_id):
+
+    rcp_id = recipe_id
+    TAG_RE = re.compile(r'<[^>]+>')
+
+    headers = ({
+        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        "x-rapidapi-key": API_KEY
+        });
+
+    url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{}/information'.format(recipe_id)
+    print(url)
+
+    payload = {'apiKey': API_KEY,
+               'id': rcp_id}
+
+    response = requests.get(url,
+                            params=payload,
+                            headers=headers)
+
+    data = response.json()
+    
+    
+    summary = TAG_RE.sub('', data.get('summary', "[NA]"))
+    preparation_time = data.get('preparationMinutes', "[NA]")
+    cooking_time = data.get('cookingTime', "[NA]")
+    likes = data.get('aggregateLikes', "[NA]")
+    serving_size = data.get('servings', "[NA]")
+    diet = data.get('diets', "[NA]")
+    dish_type = data.get('dishTypes', "[NA]")
+    cuisine = data.get('cuisines', "[NA]")
+    
+    
+
+    # if not summary:
+    #     summary = "NA"
+    # if "preparationMinutes" not in data:
+    #     preparation_time = "NA"
+
+
+    return render_template('recipe-details.html',
+                           data=data,
+                           id=rcp_id,
+                           summary=summary,
+                           preparation_time=preparation_time,
+                           cooking_time=cooking_time,
+                           likes=likes,
+                           serving_size=serving_size,
+                           diet=diet,
+                           dish_type=dish_type,
+                           cuisine=cuisine)
 
 
 @app.route('/recipes')
