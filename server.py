@@ -1,4 +1,4 @@
-from flask import Flask, redirect, request, render_template, session, flash
+from flask import Flask, redirect, request, render_template, session, flash, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 from jinja2 import StrictUndefined
 import os, requests
@@ -19,10 +19,7 @@ API_KEY = os.environ['SPOONACULAR_KEY']
 @app.route('/')
 def begin_at_login():
     """Login Page"""
-    # put a recipe into the db by hand
-    # query database for a recipe 
-    # create a template to show the recipe 
-    # pass recipe info down to template 
+
     return render_template('login-page.html')
 
 @app.route('/login', methods=['POST'])
@@ -34,14 +31,23 @@ def authenticate_user():
 
     user_in_system = User.query.filter_by(email=email).first()
     password_in_system = user_in_system.password 
+   
 
     if password_in_system == password:
         session['current_user'] = user_in_system.user_id
         flash('Successfully Logged In, Homie!')
         return redirect('/main-page')
     else:
-        flash('Login Failed')
+        flash('Sorry Dude, Login Failed')
         return redirect('/')
+
+@app.route('/logout')
+def logout():
+    """Log out"""
+
+    del session['current_user']
+    flash('Logged Out')
+    return redirect('/')
 
 @app.route('/new-user', methods=['GET'])
 def show_new_user_form():
@@ -53,18 +59,21 @@ def show_new_user_form():
 def enter_new_user_data():
     """Enters new user information"""
 
-    email = request.form.get("email")
-    password = request.form.get("password")
+    user_name = request.form.get('username')
+    email = request.form.get('email')
+    password = request.form.get('password')
 
     user_in_db = User.query.filter_by(email=email).first()
 
     if not user_in_db:
-        user = User(email=email,
+        user = User(user_name=user_name,
+                    email=email,
                     password=password)
-
+        flash('Username Created, Time to Eat!')
         db.session.add(user)
         db.session.commit()
-
+    else:
+        flash('User already exists')
     return redirect('/')
 
 @app.route('/main-page')
@@ -73,23 +82,40 @@ def continue_to_main():
 
     return render_template('main-page.html')
 
+@app.route('/my-bookmarks')
+def get_my_bookmarks_list():
+    """Show a list of user's bookmarks"""
+
+    bookmark = Bookmark.query.all()
+    return render_template('bookmarks_list.html',
+                            bookmark=bookmark)
+
 @app.route('/bookmark', methods=['POST'])
 def add_bookmark():
     """user can bookmark a recipe"""
 
-    api_recipe_id = request.form.get('api_recipe_id')
+    content = request.get_json()
+    api_recipe_id = content.get('api_recipe_id')
     user_id = session['current_user']
+    
 
+    print()
+    print()
+    print('TESTING INFO')
+    print(content)
+    print("api recipe ID")
+    print(api_recipe_id)
+    print()
+    print()
     # ingredients = (request.args.get('ingredients'))
 
     bookmark = Bookmark(user_id=user_id,
                         api_recipe_id=api_recipe_id,
                         )
-    
     db.session.add(bookmark)
     db.session.commit()
 
-    return redirect('google.com')
+    return jsonify()
 
 @app.route('/ingredients')
 def show_ingredients_form():
@@ -123,19 +149,19 @@ def search_recipes():
     data = response.json()
     
     for recipe in data:
-        recipe_id = recipe['id']
-        recipe_title = recipe['title']
+        api_recipe_id = recipe['id']
+        api_recipe_title = recipe['title']
 
     return render_template('search-results.html',
                             data=data,
                             ingredients=ingredients,
-                            recipe_id=recipe_id,
-                            recipe_title=recipe_title)
+                            api_recipe_id=api_recipe_id,
+                            api_recipe_title=api_recipe_title)
 
-@app.route('/recipes/<recipe_id>')
-def show_recipe_details(recipe_id):
+@app.route('/recipes/<api_recipe_id>')
+def show_recipe_details(api_recipe_id):
 
-    rcp_id = recipe_id
+    api_recipe_id = api_recipe_id
     TAG_RE = re.compile(r'<[^>]+>')
 
     headers = ({
@@ -143,11 +169,11 @@ def show_recipe_details(recipe_id):
         "x-rapidapi-key": API_KEY
         });
 
-    url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{}/information'.format(recipe_id)
+    url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{}/information'.format(api_recipe_id)
     print(url)
 
     payload = {'apiKey': API_KEY,
-               'id': rcp_id}
+               'id': api_recipe_id}
 
     response = requests.get(url,
                             params=payload,
@@ -156,14 +182,16 @@ def show_recipe_details(recipe_id):
     data = response.json()
     
     
-    summary = TAG_RE.sub('', data.get('summary', "[NA]"))
-    preparation_time = data.get('preparationMinutes', "[NA]")
-    cooking_time = data.get('cookingTime', "[NA]")
-    likes = data.get('aggregateLikes', "[NA]")
-    serving_size = data.get('servings', "[NA]")
-    diet = data.get('diets', "[NA]")
-    dish_type = data.get('dishTypes', "[NA]")
-    cuisine = data.get('cuisines', "[NA]")
+    summary = TAG_RE.sub('', data.get('summary', '[NA]'))
+    preparation_time = data.get('preparationMinutes', '[NA]')
+    cooking_time = data.get('cookingTime', '[NA]')
+    likes = data.get('aggregateLikes', '[NA]')
+    serving_size = data.get('servings', '[NA]')
+    diet = data.get('diets', '[NA]')
+    dish_type = data.get('dishTypes', '[NA]')
+    cuisine = data.get('cuisines', '[NA]')
+    api_recipe_title = data.get('title', '[NA]')
+    recipe_image = data['image']
     
     
 
@@ -175,7 +203,7 @@ def show_recipe_details(recipe_id):
 
     return render_template('recipe-details.html',
                            data=data,
-                           id=rcp_id,
+                           api_recipe_id=api_recipe_id,
                            summary=summary,
                            preparation_time=preparation_time,
                            cooking_time=cooking_time,
@@ -183,7 +211,9 @@ def show_recipe_details(recipe_id):
                            serving_size=serving_size,
                            diet=diet,
                            dish_type=dish_type,
-                           cuisine=cuisine)
+                           cuisine=cuisine,
+                           api_recipe_title=api_recipe_title,
+                           recipe_image=recipe_image)
 
 
 @app.route('/recipes')

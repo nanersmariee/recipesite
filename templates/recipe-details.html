@@ -7,13 +7,14 @@
 
 <h1>i'm hungry</h1>
 
-<h2> {{ data['title'] }} </h2>
+<h2> {{ api_recipe_title }} </h2>
 
     <div>
-      <img src={{ data['image'] }}>
-        <form action="/bookmark" method="POST">
-          <input type="hidden" name="api_recipe_id" value= "{{ id }}">
-          <input type="submit" value="Bookmark Me!">
+      <img src={{ recipe_image }}>
+        <!-- <form action="/bookmark" method="POST"> -->
+        <form>
+          <input type="hidden" name="api_recipe_id" value= "{{ api_recipe_id }}">
+          <div id='bookmark'>Bookmark Me!</div>
         </form>
     </div>
 
@@ -87,7 +88,6 @@
 {% for ingredient in data['extendedIngredients'] %}
     
     <div>
-        <img src= 'https://spoonacular.com/cdn/ingredients_100x100/{{  ingredient['image'] }}'>
         <li>{{ ingredient['originalString']}}</li>
     </div>
    

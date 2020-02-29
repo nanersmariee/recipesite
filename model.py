@@ -6,6 +6,20 @@ from datetime import datetime
 db = SQLAlchemy()
 
 
+class User(db.Model):
+    """individual users"""
+
+    __tablename__ = 'users'
+
+    user_id = db.Column(db.Integer,
+                        primary_key=True,
+                        autoincrement=True,
+                        )
+    user_name = db.Column(db.String(25), nullable=False, unique=True)
+    email = db.Column(db.String(25), nullable=False, unique=True)
+    password = db.Column(db.String(25), nullable=False, unique=False)
+
+
 class Recipe(db.Model):
     """individual recipes"""
 
@@ -68,17 +82,7 @@ class Recipe_Ingredient(db.Model):
                           )
     #check for uniques and nullables if they make sense
 
-class User(db.Model):
-    """individual users"""
 
-    __tablename__ = 'users'
-
-    user_id = db.Column(db.Integer,
-                        primary_key=True,
-                        autoincrement=True,
-                        )
-    email = db.Column(db.String(25), nullable=False, unique=True)
-    password = db.Column(db.String(25), nullable=False, unique=False)
     
 
 

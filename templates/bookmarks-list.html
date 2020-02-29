@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %} Recipes {% endblock %}
+
+
+{% block content %}
+
+    <h1>My Bookmarks</h1>
+
+        <ul>
+            {% for recipe in bookmarks %}
+                <li>
+                    {{ recipe.recipe_name }}
+                </li>
+            {% endfor %}
+        </ul>
+
+{% endblock %}

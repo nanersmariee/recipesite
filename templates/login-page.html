@@ -1,32 +1,34 @@
 {% extends 'base.html' %}
-
-{% block title %} Recipes {% endblock %}
-
-
 {% block content %}
 
-<!DOCTYPE html>
-<html>
 
-<body>    
+<div>>    
   <h2>Returning Users</h2>
     <h3>Login Here</h3>
-
     <form action="/login" method="POST">
 
-    Email:<input type="text" name="email"><br>
-    Password:<input type="text" name="password"><br>
-    <input type="submit" value="login">
+      <div>
+        <label>Email:
+          <input type="text" name="email"><br>
+        </label>
+      </div>
 
-    </form>
+      <div>
+        <label>Password:
+          <input type="text" name="password"><br>
+        </label>
+      </div>
+
+      <div>
+        <input type="submit" value="login">
+      </div>
+
+      </form>
 
   <h2>New User?</h2>
     <h3><a href="/new-user">Sign Up Here</a></h3>
 
-</body>
-<footer>I am a footer</footer>
-
-</html>
+</div>
 
 {% endblock %}
 
