@@ -132,28 +132,28 @@ def get_my_bookmarks_list(user_id):
 
     user_id = user_id
     bookmark = Bookmark.query.filter_by(user_id=user_id).all()
-    for recipe in bookmark:
-        api_recipe_id = recipe.api_recipe_id
+    # for recipe in bookmark:
+    #     api_recipe_id = recipe.api_recipe_id
         # print(recipe)
         # print(api_recipe_id)
     
     
-    headers = ({
-        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-        "x-rapidapi-key": API_KEY
-        });
+    # headers = ({
+    #     "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+    #     "x-rapidapi-key": API_KEY
+    #     });
 
-    url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{}/information'.format(api_recipe_id)
-    print(url)
+    #url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{}/information'.format(api_recipe_id)
+    # print(url)
 
-    payload = {'apiKey': API_KEY,
-               'id': api_recipe_id}
+    # payload = {'apiKey': API_KEY,
+    #            'id': api_recipe_id}
 
-    response = requests.get(url,
-                            params=payload,
-                            headers=headers)
+    # response = requests.get(url,
+    #                         params=payload,
+    #                         headers=headers)
 
-    data = response.json()
+    # data = response.json()
 
     # for recipe in data:
     #     print(recipe['title'])
@@ -161,9 +161,9 @@ def get_my_bookmarks_list(user_id):
 
     return render_template('bookmarks-list.html',
                             bookmark=bookmark,
-                            user_id=user_id,
-                            data=data,
-                            api_recipe_id=api_recipe_id)
+                            user_id=user_id,)
+                            #data=data,)
+                            #api_recipe_id=api_recipe_id)
                             #recipe=recipe)
 
 @app.route('/ingredients')
@@ -253,13 +253,15 @@ def show_recipe_details(api_recipe_id):
                            recipe_image=recipe_image)
 
 
-@app.route('/my-recipes')
-def recipe_list():
+@app.route('/my-recipes/<user_id>')
+def recipe_list(user_id):
     """Show a list of user recipes"""
 
+    user_id = user_id
     recipes = My_Recipe.query.all()
     return render_template('my-recipes-list.html',
-                            recipes=recipes)
+                            recipes=recipes,
+                            user_id=user_id)
 
 @app.route('/enter-recipe', methods=['GET'])
 def enter_recipe():

@@ -34,6 +34,10 @@
       <a href=/my-bookmarks/{{ session.get('current_user') }}>MY BOOKMARKS</a>
     </ul>
 
+    <ul>
+      <a href=/my-recipes/{{ session.get('current_user') }}>MY RECIPES</a>
+    </ul>
+
    <hr>
 
    <h4> {% with messages = get_flashed_messages() %}
