@@ -257,7 +257,7 @@ def show_recipe_details(api_recipe_id):
 def recipe_list():
     """Show a list of user recipes"""
 
-    recipes = Recipe.query.all()
+    recipes = My_Recipe.query.all()
     return render_template('my-recipes-list.html',
                             recipes=recipes)
 
@@ -277,7 +277,7 @@ def recipe_entered():
     cook_time = request.form.get('cook-time')
     cuisine = request.form.get('cuisine')
 
-    recipe = Recipe(recipe_name=recipe_name,
+    recipe = My_Recipe(recipe_name=recipe_name,
                     directions=directions,
                     prep_time=prep_time,
                     cook_time=cook_time,

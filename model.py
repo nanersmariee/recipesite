@@ -36,7 +36,8 @@ class My_Recipe(db.Model):
     prep_time = db.Column(db.String(25), nullable=False, unique=False,)
     cook_time = db.Column(db.String(25), nullable=False, unique=False,)
     cuisine = db.Column(db.String(25), nullable=False, unique=False,)
-    notes = db.Column(db.String(25), nullable=True, unique=False,)  
+    notes = db.Column(db.String(25), nullable=True, unique=False,)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False, unique=False,)  
 
 class Bookmark(db.Model):
     """user favorites"""
