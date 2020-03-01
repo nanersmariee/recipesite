@@ -10,11 +10,12 @@
    <h1>THAT'S WHAT CHEESE SAID</h1>
    <br>
    
-
+    <a href=/main-page>HOME</a>
     {% if 'current_user' in session %}
           
           <li>{{ session.get('current_user_name') }}</li>
-        <!--   <li><a href="/logout">Logout</a></li> -->
+
+        
           <form action="/logout"> 
             <button>Logout</button>
           </form>

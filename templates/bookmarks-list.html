@@ -8,9 +8,9 @@
     <h1>My Bookmarks</h1>
 
         <ul>
-            {% for recipe in bookmarks %}
+            {% for recipe in bookmark %}
                 <li>
-                    {{ recipe.recipe_name }}
+                    {{ recipe.api_recipe_id }}
                 </li>
             {% endfor %}
         </ul>

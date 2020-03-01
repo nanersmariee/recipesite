@@ -124,12 +124,14 @@ def remove_bookmark():
     return ''
     
 
-@app.route('/my-bookmarks')
-def get_my_bookmarks_list():
+@app.route('/my-bookmarks/<user_id>')
+def get_my_bookmarks_list(user_id):
     """Show a list of user's bookmarks"""
 
-    bookmark = Bookmark.query.all()
-    return render_template('bookmarks_list.html',
+    user_id = user_id
+    bookmark = Bookmark.query.filter_by(user_id=user_id).all()
+    print(bookmark)
+    return render_template('bookmarks-list.html',
                             bookmark=bookmark)
 
 @app.route('/ingredients')
