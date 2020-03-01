@@ -5,7 +5,7 @@ import os, requests
 from pprint import pformat
 import re
 
-from model import connect_to_db, db, Recipe, Ingredient, Recipe_Ingredient, User, Bookmark
+from model import connect_to_db, db, My_Recipe, User, Bookmark
 
 app = Flask(__name__)
 app.jinja_env.undefined = StrictUndefined
@@ -253,12 +253,12 @@ def show_recipe_details(api_recipe_id):
                            recipe_image=recipe_image)
 
 
-@app.route('/recipes')
+@app.route('/my-recipes')
 def recipe_list():
     """Show a list of user recipes"""
 
     recipes = Recipe.query.all()
-    return render_template('recipe_list.html',
+    return render_template('my-recipes-list.html',
                             recipes=recipes)
 
 @app.route('/enter-recipe', methods=['GET'])

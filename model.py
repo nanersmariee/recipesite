@@ -20,71 +20,23 @@ class User(db.Model):
     password = db.Column(db.String(25), nullable=False, unique=False)
 
 
-class Recipe(db.Model):
+class My_Recipe(db.Model):
     """individual recipes"""
 
-    __tablename__ = 'recipes'
+    __tablename__ = 'my_recipes'
 
     recipe_id = db.Column(db.Integer,
                           primary_key=True,
                           autoincrement=True,
                           )
     recipe_name = db.Column(db.String(100), nullable=False, unique=False,)
+    ingredients = db.Column(db.String(5000), nullable=False, unique=False,)
     directions = db.Column(db.String(5000), nullable=False, unique=False,)
     ratings = db.Column(db.Integer, nullable=True, unique=False,)
     prep_time = db.Column(db.String(25), nullable=False, unique=False,)
     cook_time = db.Column(db.String(25), nullable=False, unique=False,)
     cuisine = db.Column(db.String(25), nullable=False, unique=False,)
-    #can i put multiple cuisines into this column, Ex: Asian, Filipino
-
-class Recipe_Detail(db.Model):
-    """recipe details from api"""
-
-    __tablename__ = 'recipe_details'
-
-    recipe_id = db.Column(db.Integer,
-                                  primary_key=True,
-                                  autoincrement=True,
-                                  )
-    title = db.Column(db.String(500), nullable=False, unique=False)
-    #instructions = db.Column(db.String(5000), nullable=False, unique=False)
-    # source_url = db.Column(db.String(500), nullable=False, unique=True)
-
-class Ingredient(db.Model):
-    """Individual ingredients from a comprehensive list"""
-
-    __tablename__ = 'ingredients'
-
-    ingredient_id = db.Column(db.Integer,
-                              primary_key=True,
-                              autoincrement=True,
-                              )
-    name = db.Column(db.String(25), nullable=False, unique=True,)
-
-class Recipe_Ingredient(db.Model):
-    """Ingredients from Recipes"""
-
-    __tablename__ = 'recipe_ingredients'
-
-    recipe_ingredients_id = db.Column(db.Integer,
-                                      primary_key=True,
-                                      autoincrement=True,
-                                      )
-    ingredient_id = db.Column(db.Integer,
-                              db.ForeignKey('ingredients.ingredient_id'),
-                              nullable=False,
-                              unique=False,
-                              )
-    recipe_id = db.Column(db.Integer,
-                          db.ForeignKey('recipes.recipe_id'),
-                          nullable=False,
-                          unique=False,
-                          )
-    #check for uniques and nullables if they make sense
-
-
-    
-
+    notes = db.Column(db.String(25), nullable=True, unique=False,)  
 
 class Bookmark(db.Model):
     """user favorites"""
