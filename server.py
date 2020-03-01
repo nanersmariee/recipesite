@@ -263,6 +263,9 @@ def recipe_list(user_id):
                             recipes=recipes,
                             user_id=user_id)
 
+
+
+
 @app.route('/enter-recipe', methods=['GET'])
 def enter_recipe():
     """Shows a form for a user to enter a recipe"""
@@ -270,9 +273,10 @@ def enter_recipe():
     return render_template('enter_recipe.html')
 
 @app.route('/enter-recipe', methods=['POST'])
-def recipe_entered(user_id):
+def recipe_entered():
     """Adds a recipe that a user entered into the recipe directory"""
-    user_id = user_id
+    
+    user_id = session['current_user']
     recipe_name = request.form.get('recipe_name')
     ingredients = request.form.get('ingredients')
     directions = request.form.get('directions')

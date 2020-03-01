@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h1>My Recipes</h1>
+
+        <ul>
+            {% for recipe in recipes %}
+                <li>
+                    <a href=/my-recipes/{{ recipe.recipe_name }}>{{ recipe.recipe_name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+{% endblock %}
