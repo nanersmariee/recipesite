@@ -8,13 +8,11 @@
     <h1>My Bookmarks</h1>
       <div>
         <ul>
-            {% for recipe in bookmark %}
-              <li>
-                  {{ recipe.api_recipe_id }}
-              </li>
-
-              <li>
-                  <img src='https://spoonacular.com/recipeImages/{{ recipe.api_recipe_id }}-312x231.jpg'>
+            {% for bookmark in bookmarks %}
+              <li>{{ bookmark.api_recipe_id }}</li>
+              <li>{{ bookmark_titles[bookmark.api_recipe_id] }}<li>
+                  
+                  <img src='https://spoonacular.com/recipeImages/{{ bookmark.api_recipe_id }}-312x231.jpg'>
               </li>
               <br>
 

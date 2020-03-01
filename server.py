@@ -131,40 +131,35 @@ def get_my_bookmarks_list(user_id):
     """Show a list of user's bookmarks"""
 
     user_id = user_id
-    bookmark = Bookmark.query.filter_by(user_id=user_id).all()
-    # for recipe in bookmark:
-    #     api_recipe_id = recipe.api_recipe_id
-        # print(recipe)
-        # print(api_recipe_id)
+    bookmarks = Bookmark.query.filter_by(user_id=user_id).all()
+    bookmark_titles = {} 
+
+    for bookmark in bookmarks:
+        api_recipe_id = bookmark.api_recipe_id
     
-    
-    # headers = ({
-    #     "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-    #     "x-rapidapi-key": API_KEY
-    #     });
+        headers = ({
+            "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+            "x-rapidapi-key": API_KEY
+            });
 
-    #url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{}/information'.format(api_recipe_id)
-    # print(url)
+        url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{}/information'.format(api_recipe_id)
+        print(url)
 
-    # payload = {'apiKey': API_KEY,
-    #            'id': api_recipe_id}
+        payload = {'apiKey': API_KEY,
+                   'id': api_recipe_id}
 
-    # response = requests.get(url,
-    #                         params=payload,
-    #                         headers=headers)
+        response = requests.get(url,
+                                params=payload,
+                                headers=headers)
 
-    # data = response.json()
+        data = response.json()
 
-    # for recipe in data:
-    #     print(recipe['title'])
-
+        bookmark_titles[api_recipe_id] = data['title']
 
     return render_template('bookmarks-list.html',
-                            bookmark=bookmark,
-                            user_id=user_id,)
-                            #data=data,)
-                            #api_recipe_id=api_recipe_id)
-                            #recipe=recipe)
+                            bookmarks=bookmarks,
+                            data=data,
+                            bookmark_titles=bookmark_titles)
 
 @app.route('/ingredients')
 def show_ingredients_form():
@@ -253,18 +248,40 @@ def show_recipe_details(api_recipe_id):
                            recipe_image=recipe_image)
 
 
-@app.route('/my-recipes/<user_id>')
-def recipe_list(user_id):
+@app.route('/my-recipes')
+def recipe_list():
     """Show a list of user recipes"""
 
-    user_id = user_id
+    user_id = session['current_user']
     recipes = My_Recipe.query.all()
     return render_template('my-recipes-list.html',
                             recipes=recipes,
                             user_id=user_id)
 
+@app.route('/my-recipes/<recipe_id>')
+def get_my_recipe_details(recipe_id):
+    """Show recipe details from user's recipe"""
+
+    recipe_id = recipe_id
+    recipe = My_Recipe.query.filter_by(recipe_id=recipe_id).first()
 
 
+    print(recipe_id)
+    print(recipe)
+    
+
+    return render_template('my-recipe-details.html',
+                            recipe=recipe,
+                            recipe_id=recipe)
+
+@app.route('/edit-my-recipe', methods=['POST'])
+def edit_my_recipe(recipe_id):
+    """allows user to edit their own recipe"""
+
+    recipe = My_Recipe.query.filter_by(recipe_id=recipe_id).first()
+
+
+    render_template('edit-my-recipe.html')
 
 @app.route('/enter-recipe', methods=['GET'])
 def enter_recipe():
