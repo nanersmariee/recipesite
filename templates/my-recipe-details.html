@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+    <h1>please work</h1>
+    <h3>{{ recipe.recipe_name }}</h3>
+    <h3>{{ recipe.ingredients }}</h3>
+    <h3>{{ recipe.directions }}</h3>
+
+ <button><a href="/edit-my-recipe/{{ recipe_id }}">Edit Recipe</button>
+
+{% endblock %}

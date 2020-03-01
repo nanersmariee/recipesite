@@ -1,17 +1,20 @@
 {% extends 'base.html' %}
-
-{% block title %} Recipes {% endblock %}
-
-
 {% block content %}
 
- <h1>Enter Your Recipe Details:</h1>
+
+<h2>Edit My Recipe</h2>
+{% from "_formhelpers.html" import render_field %}
+<form action="/my-recipes/<recipe_id>" method="GET">
+
+  <dl>
+    {{ render_field(form.ingredients) }}
+  </dl>
+  <p><input type="submit" value="Submit">
+  </p></form>
 
 <div>  
   <form action="/enter-recipe" method="POST">
-    
-    
-    <label>Recipe Name</label>
+    Recipe Name
     <br>
     <input type="text" name="recipe_name">
     <br>
@@ -94,8 +97,5 @@
       <input type="submit" value="Enter Recipe!">
     </form>
 
-
-</div>
-
-
 {% endblock %}
+</div>

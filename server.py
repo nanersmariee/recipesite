@@ -274,10 +274,15 @@ def get_my_recipe_details(recipe_id):
                             recipe=recipe,
                             recipe_id=recipe)
 
-@app.route('/edit-my-recipe', methods=['POST'])
+@app.route('/edit-my-recipe/<recipe_id>', methods=['GET'])
 def edit_my_recipe(recipe_id):
     """allows user to edit their own recipe"""
+    print("***********************")
+    print()
+    print(recipe_id)
 
+    print()
+    print('***********************')
     recipe = My_Recipe.query.filter_by(recipe_id=recipe_id).first()
 
 
