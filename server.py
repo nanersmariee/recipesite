@@ -29,23 +29,23 @@ def authenticate_user():
     email = request.form.get("email")
     password = request.form.get("password")
 
-    user_in_system = User.query.filter_by(email=email).first()
-    password_in_system = user_in_system.password 
+    user = User.query.filter_by(email=email).first()
+    # password_in_system = user.password 
    
 
-    if not user_in_system:
+    if not user:
         flash('User does not exist')
         return redirect('/')
 
-    elif password_in_system == password:
-        session['current_user'] = user_in_system.user_id
-        session['current_user_name'] = user_in_system.user_name 
-        flash('Successfully Logged In, Homie!')
-        return redirect('/main-page')
-    
-    else:
+    if user.password != password:
         flash('Sorry Dude, Login Failed')
         return redirect('/')
+
+    session['current_user'] = user.user_id
+    session['current_user_name'] = user.user_name 
+    
+    flash('Successfully Logged In, Homie!')
+    return redirect('/main-page')
 
 @app.route('/logout')
 def logout():
