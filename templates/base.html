@@ -13,11 +13,14 @@
 
     {% if 'current_user' in session %}
           
-          <li>{{ session['current_user'] }}</li>
-          <li><a href="/logout">Logout</a></li>
+          <li>{{ session.get('current_user_name') }}</li>
+        <!--   <li><a href="/logout">Logout</a></li> -->
+          <form action="/logout"> 
+            <button>Logout</button>
+          </form>
         
       {% else %}
-          <li><a href="/login">Login</a></li>
+          <li><a href="/">Home</a></li>
     {% endif %}
 
    <hr>
@@ -41,16 +44,35 @@
   <script>
     $('#bookmark').click(e => {
       const $form = $(e.target).parents('form')
-      const api_recipe_id = $form.find('input[name=api_recipe_id]').val()
-      fetch('/bookmark',{
-        method:'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          api_recipe_id: api_recipe_id
+      const api_recipe_id = $('#test-id').val()
+      console.log(api_recipe_id)
+      const isBookmarked = $('#bookmark').html()==='Unbookmark Me!' 
+      console.log(isBookmarked)
+      if (isBookmarked){
+        fetch('/bookmark',{
+          method:'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            api_recipe_id: api_recipe_id
+          })
+        }).then(()=>{
+          $('#bookmark').html('Bookmark Me!') 
         })
-      })
+      } else {
+        fetch('/bookmark',{
+          method:'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            api_recipe_id: api_recipe_id
+          })
+        }).then(()=>{
+          $('#bookmark').html('Unbookmark Me!')
+        })
+      }
     })
   </script>
   </body>

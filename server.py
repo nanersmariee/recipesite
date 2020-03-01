@@ -33,8 +33,12 @@ def authenticate_user():
     password_in_system = user_in_system.password 
    
 
-    if password_in_system == password:
+    if not user_in_system:
+        flash('User does not exist')
+        return redirect('/')
+    elif password_in_system == password:
         session['current_user'] = user_in_system.user_id
+        session['current_user_name'] = user_in_system.user_name 
         flash('Successfully Logged In, Homie!')
         return redirect('/main-page')
     else:
@@ -82,14 +86,6 @@ def continue_to_main():
 
     return render_template('main-page.html')
 
-@app.route('/my-bookmarks')
-def get_my_bookmarks_list():
-    """Show a list of user's bookmarks"""
-
-    bookmark = Bookmark.query.all()
-    return render_template('bookmarks_list.html',
-                            bookmark=bookmark)
-
 @app.route('/bookmark', methods=['POST'])
 def add_bookmark():
     """user can bookmark a recipe"""
@@ -98,15 +94,6 @@ def add_bookmark():
     api_recipe_id = content.get('api_recipe_id')
     user_id = session['current_user']
     
-
-    print()
-    print()
-    print('TESTING INFO')
-    print(content)
-    print("api recipe ID")
-    print(api_recipe_id)
-    print()
-    print()
     # ingredients = (request.args.get('ingredients'))
 
     bookmark = Bookmark(user_id=user_id,
@@ -114,8 +101,36 @@ def add_bookmark():
                         )
     db.session.add(bookmark)
     db.session.commit()
+    print('adding a bookmark')
 
     return jsonify()
+
+@app.route('/bookmark', methods=['DELETE'])
+def remove_bookmark():
+    """removes a bookmark of a recipe"""
+
+    content = request.get_json()
+    api_recipe_id = content.get('api_recipe_id')
+    user_id = session['current_user']
+
+    bookmark = Bookmark.query.filter_by(user_id=user_id, api_recipe_id=api_recipe_id).first()
+    
+    if bookmark:
+        db.session.delete(bookmark)
+        db.session.commit()
+
+    print('removing a bookmark')
+
+    return ''
+    
+
+@app.route('/my-bookmarks')
+def get_my_bookmarks_list():
+    """Show a list of user's bookmarks"""
+
+    bookmark = Bookmark.query.all()
+    return render_template('bookmarks_list.html',
+                            bookmark=bookmark)
 
 @app.route('/ingredients')
 def show_ingredients_form():
@@ -129,7 +144,9 @@ def search_recipes():
 
     ingredients = (request.args.get('ingredients')).title()
     num_recipes =request.args.get('num_recipes')
-    
+    print(ingredients)
+    print(num_recipes)
+
     headers = ({
         "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
         "x-rapidapi-key": API_KEY
@@ -140,23 +157,17 @@ def search_recipes():
 
     payload = {'apiKey': API_KEY,
                'ingredients': ingredients,
-               'num_recipes': num_recipes}
+               'num_recipes': 25}
 
     response = requests.get(url, 
                             params=payload, 
                             headers=headers)
 
     data = response.json()
-    
-    for recipe in data:
-        api_recipe_id = recipe['id']
-        api_recipe_title = recipe['title']
 
     return render_template('search-results.html',
                             data=data,
-                            ingredients=ingredients,
-                            api_recipe_id=api_recipe_id,
-                            api_recipe_title=api_recipe_title)
+                            ingredients=ingredients)
 
 @app.route('/recipes/<api_recipe_id>')
 def show_recipe_details(api_recipe_id):
