@@ -36,11 +36,13 @@ def authenticate_user():
     if not user_in_system:
         flash('User does not exist')
         return redirect('/')
+
     elif password_in_system == password:
         session['current_user'] = user_in_system.user_id
         session['current_user_name'] = user_in_system.user_name 
         flash('Successfully Logged In, Homie!')
         return redirect('/main-page')
+    
     else:
         flash('Sorry Dude, Login Failed')
         return redirect('/')
