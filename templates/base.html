@@ -9,36 +9,25 @@
   
   <body>
    <h1>THAT'S WHAT CHEESE SAID</h1>
-   <br>
-   
-    <ul>
-      <a href=/main-page>HOME</a>
-    </ul>
-   
-   
-
-    
-
-    <ul>
-      <a href=/my-bookmarks/{{ session.get('current_user') }}>MY BOOKMARKS</a>
-    </ul>
-
-    <ul>
-      <a href=/my-recipes>MY RECIPES</a>
-    </ul>
-
-
     {% if 'current_user' in session %}
           
-          <li>{{ session.get('current_user_name') }}</li>
+          <h3><a href='/main-page'>HOME</a></h3>
 
+          <li>{{ session.get('current_user_name') }}</li>
+          <ul>
+            <a href=/my-bookmarks/{{ session.get('current_user') }}>MY BOOKMARKS</a>
+          </ul>
+
+          <ul>
+            <a href=/my-recipes>MY RECIPES</a>
+          </ul>
         
           <form action="/logout"> 
             <button>Logout</button>
           </form>
         
       {% else %}
-          <li><a href="/">Home</a></li>
+          <h3><a href="/">HOME</a></h3>
     {% endif %}
 
 
