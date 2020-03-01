@@ -134,7 +134,10 @@ def get_my_bookmarks_list(user_id):
     bookmark = Bookmark.query.filter_by(user_id=user_id).all()
     print(bookmark)
     return render_template('bookmarks-list.html',
-                            bookmark=bookmark)
+                            bookmark=bookmark,
+                            user_id=user_id)
+    print(user_id)
+    print(bookmark)
 
 @app.route('/ingredients')
 def show_ingredients_form():

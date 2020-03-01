@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   
@@ -10,7 +11,12 @@
    <h1>THAT'S WHAT CHEESE SAID</h1>
    <br>
    
-    <a href=/main-page>HOME</a>
+    <ul>
+      <a href=/main-page>HOME</a>
+    </ul>
+   
+   
+
     {% if 'current_user' in session %}
           
           <li>{{ session.get('current_user_name') }}</li>
@@ -23,6 +29,10 @@
       {% else %}
           <li><a href="/">Home</a></li>
     {% endif %}
+
+    <ul>
+      <a href=/my-bookmarks/{{ session.get('current_user') }}>MY BOOKMARKS</a>
+    </ul>
 
    <hr>
 
