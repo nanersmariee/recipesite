@@ -132,10 +132,39 @@ def get_my_bookmarks_list(user_id):
 
     user_id = user_id
     bookmark = Bookmark.query.filter_by(user_id=user_id).all()
+    for recipe in bookmark:
+        api_recipe_id = recipe.api_recipe_id
+        # print(recipe)
+        # print(api_recipe_id)
     
+    
+    headers = ({
+        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        "x-rapidapi-key": API_KEY
+        });
+
+    url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{}/information'.format(api_recipe_id)
+    print(url)
+
+    payload = {'apiKey': API_KEY,
+               'id': api_recipe_id}
+
+    response = requests.get(url,
+                            params=payload,
+                            headers=headers)
+
+    data = response.json()
+
+    # for recipe in data:
+    #     print(recipe['title'])
+
+
     return render_template('bookmarks-list.html',
                             bookmark=bookmark,
-                            user_id=user_id)
+                            user_id=user_id,
+                            data=data,
+                            api_recipe_id=api_recipe_id)
+                            #recipe=recipe)
 
 @app.route('/ingredients')
 def show_ingredients_form():
@@ -208,14 +237,6 @@ def show_recipe_details(api_recipe_id):
     cuisine = data.get('cuisines', '[NA]')
     api_recipe_title = data.get('title', '[NA]')
     recipe_image = data['image']
-    
-    
-
-    # if not summary:
-    #     summary = "NA"
-    # if "preparationMinutes" not in data:
-    #     preparation_time = "NA"
-
 
     return render_template('recipe-details.html',
                            data=data,
