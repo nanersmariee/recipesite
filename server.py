@@ -270,20 +270,23 @@ def enter_recipe():
     return render_template('enter_recipe.html')
 
 @app.route('/enter-recipe', methods=['POST'])
-def recipe_entered():
+def recipe_entered(user_id):
     """Adds a recipe that a user entered into the recipe directory"""
-
+    user_id = user_id
     recipe_name = request.form.get('recipe_name')
+    ingredients = request.form.get('ingredients')
     directions = request.form.get('directions')
     prep_time = request.form.get('prep-time')
     cook_time = request.form.get('cook-time')
     cuisine = request.form.get('cuisine')
 
     recipe = My_Recipe(recipe_name=recipe_name,
+                    ingredients=ingredients,
                     directions=directions,
                     prep_time=prep_time,
                     cook_time=cook_time,
-                    cuisine=cuisine)
+                    cuisine=cuisine,
+                    user_id=user_id)
 
     db.session.add(recipe)
     db.session.commit()

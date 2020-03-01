@@ -17,6 +17,17 @@
    
    
 
+    
+
+    <ul>
+      <a href=/my-bookmarks/{{ session.get('current_user') }}>MY BOOKMARKS</a>
+    </ul>
+
+    <ul>
+      <a href=/my-recipes/{{ session.get('current_user') }}>MY RECIPES</a>
+    </ul>
+
+
     {% if 'current_user' in session %}
           
           <li>{{ session.get('current_user_name') }}</li>
@@ -30,13 +41,6 @@
           <li><a href="/">Home</a></li>
     {% endif %}
 
-    <ul>
-      <a href=/my-bookmarks/{{ session.get('current_user') }}>MY BOOKMARKS</a>
-    </ul>
-
-    <ul>
-      <a href=/my-recipes/{{ session.get('current_user') }}>MY RECIPES</a>
-    </ul>
 
    <hr>
 

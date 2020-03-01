@@ -10,12 +10,15 @@
         <ul>
             {% for recipe in bookmark %}
               <li>
-                  <img src='https://spoonacular.com/recipeImages/{{ recipe.api_recipe_id }}-312x231.jpg'>
+                  {{ recipe.api_recipe_id }}
               </li>
 
               <li>
-                  {{ data['title'] }}
+                  <img src='https://spoonacular.com/recipeImages/{{ recipe.api_recipe_id }}-312x231.jpg'>
               </li>
+              <br>
+
+              
             {% endfor %}
         </ul>
       </div>
