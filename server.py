@@ -279,6 +279,30 @@ def show_nutrition(api_recipe_id):
                             api_recipe_id=api_recipe_id)
 
 
+@app.route('/similar-recipes/<api_recipe_id>')
+def get_similar_recipes(api_recipe_id):
+    
+    api_recipe_id = api_recipe_id
+    
+    headers = ({
+        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        "x-rapidapi-key": API_KEY
+        });
+    
+    url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{}/similar".format(api_recipe_id)
+    print(url)
+
+    payload = {'apiKey': API_KEY,
+               'id': api_recipe_id}
+
+    response = requests.get(url,
+                            params=payload,
+                            headers=headers)
+    data = response.json()
+
+    return render_template('similar-recipes.html',
+                            data=data,
+                            api_recipe_id=api_recipe_id)
 
 
 

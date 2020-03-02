@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Similar Recipes to </h2>
+
+{% for recipe in data  %}
+
+<h3><a href="/recipes/{{ recipe['id'] }}">{{ recipe['title'] }}</a><h3>
+
+
+
+<img src="https://spoonacular.com/recipeImages/{{ recipe['id'] }}-312x231.jpg">
+
+{% endfor %}
+
+{% endblock %}
