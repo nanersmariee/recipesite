@@ -1,9 +1,9 @@
-from flask import Flask, redirect, request, render_template, session, flash, jsonify
+from flask import Flask, redirect, request, render_template, session, flash, jsonify, json
 from flask_debugtoolbar import DebugToolbarExtension
 from jinja2 import StrictUndefined
 import os, requests
 from pprint import pformat
-import re
+import re, sys 
 
 from model import connect_to_db, db, My_Recipe, User, Bookmark
 
@@ -203,6 +203,8 @@ def show_recipe_details(api_recipe_id):
 
     api_recipe_id = api_recipe_id
     TAG_RE = re.compile(r'<[^>]+>')
+    print(api_recipe_id)
+    print("TESTING")
 
     headers = ({
         "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
@@ -233,10 +235,7 @@ def show_recipe_details(api_recipe_id):
     api_recipe_title = data.get('title', '[NA]')
     recipe_image = data['image']
     recipe_aisle = data.get('aisle', '[NA]')
-    print(recipe_aisle)
-    print(api_recipe_id)
-    print(cuisine)
-
+    
     return render_template('recipe-details.html',
                            data=data,
                            api_recipe_id=api_recipe_id,
@@ -251,6 +250,37 @@ def show_recipe_details(api_recipe_id):
                            api_recipe_title=api_recipe_title,
                            recipe_image=recipe_image,
                            recipe_aisle=recipe_aisle)
+
+@app.route('/nutrition/<api_recipe_id>')
+def show_nutrition(api_recipe_id):
+    """show nutrition of a recipe by recipe id"""
+
+    api_recipe_id = api_recipe_id
+    print(api_recipe_id)
+
+    headers = ({
+        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        "x-rapidapi-key": API_KEY
+        });
+    # url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{}/nutritionWidget".format(api_recipe_id)
+    url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{}/nutritionWidget.json".format(api_recipe_id)
+    print(url)
+
+    payload = {'apiKey': API_KEY,
+               'id': api_recipe_id}
+
+    response = requests.get(url,
+                            params=payload,
+                            headers=headers)
+    data = response.json()
+
+    return render_template('nutrition.html',
+                            data=data,
+                            api_recipe_id=api_recipe_id)
+
+
+
+
 
 
 @app.route('/my-recipes')
