@@ -232,6 +232,10 @@ def show_recipe_details(api_recipe_id):
     cuisine = data.get('cuisines', '[NA]')
     api_recipe_title = data.get('title', '[NA]')
     recipe_image = data['image']
+    recipe_aisle = data.get('aisle', '[NA]')
+    print(recipe_aisle)
+    print(api_recipe_id)
+    print(cuisine)
 
     return render_template('recipe-details.html',
                            data=data,
@@ -245,7 +249,8 @@ def show_recipe_details(api_recipe_id):
                            dish_type=dish_type,
                            cuisine=cuisine,
                            api_recipe_title=api_recipe_title,
-                           recipe_image=recipe_image)
+                           recipe_image=recipe_image,
+                           recipe_aisle=recipe_aisle)
 
 
 @app.route('/my-recipes')

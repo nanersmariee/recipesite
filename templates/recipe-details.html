@@ -15,38 +15,31 @@
         <button id='bookmark'>Bookmark Me!</button>
     </div>
 
+     <p>
+        {{ summary }}  <a href={{ data['sourceUrl']}}><i>Source Link</i></a></h5></i>
+    </p>
+
   <ul>
     
     <h2>Here's what you'll need:</h2>
     
     <div>
         {% for ingredient in data['extendedIngredients'] %}
+          
+
             <span>
                 <img src= 'https://spoonacular.com/cdn/ingredients_100x100/{{  ingredient['image'] }}'>
-                  {{ ingredient['name']}}            
+                {{ ingredient['name'] }}            
             </span>
         {% endfor %}
+            
+          
+        
     </div>
+   
+   <h2>Recipe Card</h2>
 
-
-    <div>
-      {% for ingredient in data['extendedIngredients'] %}
-              <span>
-                <figure>
-                  <img src="https://spoonacular.com/cdn/ingredients_100x100/{{  ingredient['image'] }}">
-                   <figcaption>{{ ingredient['name']}}</figcaption> 
-                </figure>           
-              </span>
-        {% endfor %}
-</div>
-
-
-
-
-    <p>
-        <b>Summary:</b>
-        {{ summary }}
-    </p>
+  
 
     <li>
         <b>Preparation Time:</b>
@@ -64,7 +57,30 @@
         <b>Servings:</b>
         {{ serving_size }}
     </li>
-    <li>
+  
+    <br>
+    
+    
+
+    <p>
+      <b>Ingredients:</b>
+{% for ingredient in data['extendedIngredients'] %}
+    
+    <div>
+        <ul>{{ ingredient['originalString']}}</ul>
+    </div>
+   
+
+{% endfor %}
+    <p>
+        <b>Directions:</b>
+        {{ data['instructions'] }}
+    </p>
+
+
+
+
+  <li>
         <b>Diets:(</b>
         {{ diet }})
     </li>
@@ -76,27 +92,6 @@
         <b>Cuisines:</b>
         {{ cuisine }}
     </li>
-    <br>
-    
-    
-
-    <p>
-      <b>Ingredients:</b>
-{% for ingredient in data['extendedIngredients'] %}
-    
-    <div>
-        <li>{{ ingredient['originalString']}}</li>
-    </div>
-   
-
-{% endfor %}
-    <p>
-        <b>Directions:</b>
-        {{ data['instructions'] }}
-    </p>
-
-
-<a href={{ data['sourceUrl']}}><h5>Source Link</h5></a>
 
 <h3>Test Data</h3>
 
