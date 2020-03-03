@@ -1,0 +1,54 @@
+<h1>Win Req Results</h1>
+
+
+{{ data }}
+
+{% for type in data %}
+{{ type }}
+
+
+{% endfor %}
+
+
+<h2>Test</h2>
+
+{{ data['recommendedWines'] }}
+
+<h2>Test</h2>
+
+{% for attribute in data['recommendedWines'] %}
+
+  <div><img src="{{ attribute['imageUrl']}}"></div>
+
+  <ul><b>Wine ID:</b>
+  {{ attribute['id'] }}
+  </ul>
+  
+  <ul><b>Title:</b>
+  {{ attribute['title'] }}
+  </ul>
+  
+  <ul><b>Description:</b>
+  {{ attribute['description'] }}
+  </ul>
+  
+  <ul><b>Price:</b>
+  {{ attribute['price'] }}
+  </ul>
+  
+  <ul><b>Average Rating:</b>
+  {{ attribute['averageRating'] }}</ul>
+
+  <ul><b>Rating Count</b>
+  {{ attribute['ratingCount'] }}</ul>
+
+  <ul><b>Score</b>
+  {{ attribute['score'] }}
+  </ul>
+
+  <ul><b>Source</b>
+  {{ attribute['link'] }}
+  </ul>
+
+{% endfor %}
+

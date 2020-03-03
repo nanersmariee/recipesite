@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %} Sounds Gouda {% endblock %}
+
+
+{% block content %}
+
+
+<h2>Enter URL</h2>
+
+    <form action="/add-recipe" method="GET">
+      
+      <input type="text" name="url">
+
+
+      <input type="submit" value="Upload Recipe Link">
+    
+
+
+    </form>
+
+
+
+
+{% endblock %}

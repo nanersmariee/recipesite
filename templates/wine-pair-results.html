@@ -1,0 +1,72 @@
+<h2>Wine Pairing Results</h2>
+
+{{ data }}
+
+<h2>TEST</h2>
+
+{{ data['pairedWines'] }}
+
+<h2>TEST</h2>
+
+
+<div>
+  <b>Paired Wines</b>
+
+    {% for thing in data['pairedWines'] %}
+    <ul>{{ thing }}</ul>
+
+    {% endfor %}
+</div>
+
+<div>
+  <b>Summary</b>
+
+  {{ data['pairingText'] }}
+</div>
+
+<div>
+  <b>Product Matches</b>
+
+  {% for thing in data['productMatches'] %}
+  
+  <div>
+    <image src="{{ thing['imageUrl'] }}">
+
+  <div>
+    <b>Title:</b>
+      <ul>{{ thing['title'] }}</ul>
+  </div>
+
+  <div>
+    <b>Description:</b>
+    <ul>{{ thing['description'] }}</ul>
+  </div>
+
+  <div>
+    <b>Price:</b>
+    <ul>{{ thing['price'] }}</ul>
+  </div>
+
+  <div>
+    <b>Average Rating:</b>
+    <ul>{{ thing['averageRating'] }}</ul>
+  </div>
+
+  <div>
+    <b>Rating Count</b>
+    <ul>{{ thing['ratingCount'] }}</ul>
+  </div>
+
+  <div>
+    <b>Score:</b>
+    <ul>{{ thing['score'] }}</ul>
+  </div>
+
+
+  <div>
+    <b>Source</b>
+    <ul>{{ thing['link'] }}</ul>
+  </div>
+
+  {% endfor %}
+</div>

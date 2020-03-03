@@ -203,8 +203,6 @@ def show_recipe_details(api_recipe_id):
 
     api_recipe_id = api_recipe_id
     TAG_RE = re.compile(r'<[^>]+>')
-    print(api_recipe_id)
-    print("TESTING")
 
     headers = ({
         "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
@@ -225,14 +223,14 @@ def show_recipe_details(api_recipe_id):
     
     
     summary = TAG_RE.sub('', data.get('summary', '[NA]'))
-    preparation_time = data.get('preparationMinutes', '[NA]')
-    cooking_time = data.get('cookingTime', '[NA]')
+    readyInMinutes = data.get('readyInMinutes', '[NA]')
     likes = data.get('aggregateLikes', '[NA]')
     serving_size = data.get('servings', '[NA]')
     diet = data.get('diets', '[NA]')
     dish_type = data.get('dishTypes', '[NA]')
     cuisine = data.get('cuisines', '[NA]')
     api_recipe_title = data.get('title', '[NA]')
+    instructions = data.get('instructions', '[NA]')
     recipe_image = data['image']
     recipe_aisle = data.get('aisle', '[NA]')
     
@@ -240,14 +238,14 @@ def show_recipe_details(api_recipe_id):
                            data=data,
                            api_recipe_id=api_recipe_id,
                            summary=summary,
-                           preparation_time=preparation_time,
-                           cooking_time=cooking_time,
+                           readyInMinutes=readyInMinutes,
                            likes=likes,
                            serving_size=serving_size,
                            diet=diet,
                            dish_type=dish_type,
                            cuisine=cuisine,
                            api_recipe_title=api_recipe_title,
+                           instructions=instructions,
                            recipe_image=recipe_image,
                            recipe_aisle=recipe_aisle)
 
@@ -305,6 +303,154 @@ def get_similar_recipes(api_recipe_id):
                             api_recipe_id=api_recipe_id)
 
 
+@app.route('/add-recipe-url-form')
+def show_form_for_url():
+    """Shows form to enter a url"""
+
+    return render_template('add-recipe-url-form.html')
+
+
+@app.route('/add-recipe')
+def add_recipe_url():
+    """Add a recipe url"""
+
+    url_upload=request.args.get('url')
+    TAG_RE = re.compile(r'<[^>]+>')
+
+    headers = ({
+        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        "x-rapidapi-key": API_KEY
+        });
+
+    url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/extract'
+    print(url)
+
+    payload = {'apiKey': API_KEY,
+               'url': url_upload}
+
+    response = requests.get(url,
+                            params=payload,
+                            headers=headers)
+
+    data = response.json()
+    
+    summary = data.get('summary', '[NA]')
+    #summary = TAG_RE.sub('', data.get('summary', '[NA]'))
+    cookingMinutes = data.get('cookingMinutes', '[NA]')
+    preparationMinutes = data.get('preparationMinutes', '[NA]')
+    likes = data.get('aggregateLikes', '[NA]')
+    serving_size = data.get('servings', '[NA]')
+    diet = data.get('diets', '[NA]')
+    dish_type = data.get('dishTypes', '[NA]')
+    cuisine = data.get('cuisines', '[NA]')
+    api_recipe_title = data.get('title', '[NA]')
+    instructions = data.get('instructions', '[NA]')
+    recipe_image = data['image']
+    recipe_aisle = data.get('aisle', '[NA]')
+    
+    return render_template('add-recipe-url.html',
+                           data=data,
+                           summary=summary,
+                           preparationMinutes=preparationMinutes,
+                           cookingMinutes=cookingMinutes,
+                           likes=likes,
+                           serving_size=serving_size,
+                           diet=diet,
+                           dish_type=dish_type,
+                           cuisine=cuisine,
+                           api_recipe_title=api_recipe_title,
+                           instructions=instructions,
+                           recipe_image=recipe_image)
+
+    render_template('add-recipe-url.html')
+
+@app.route('/wine-rec')
+def search_wine():
+    """Search form for wine"""
+
+    return render_template('wine-rec-form.html')
+
+@app.route('/wine-results')
+def get_wine_rec():
+
+    """Get a wine recommendation"""
+
+    wine = (request.args.get('wine')).title()
+
+    headers = ({
+        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        "x-rapidapi-key": API_KEY
+        });
+
+    url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/wine/recommendation"
+
+    payload = {'apiKey': API_KEY,
+               'wine': wine}
+
+    response = requests.get(url,
+                            params=payload,
+                            headers=headers)
+
+    data = response.json()
+    print(data)
+    return render_template('wine-recs-results.html',
+                            wine=wine,
+                            data=data)
+
+@app.route('/wine-pair')
+def search_wine_pair():
+    """Search form for wine pairing"""
+
+    return render_template('wine-pair-form.html')
+
+@app.route('/wine-pair-results')
+def get_wine_pair():
+
+    """Get a wine pairing"""
+
+    food = (request.args.get('food')).title()
+
+    headers = ({
+        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        "x-rapidapi-key": API_KEY
+        });
+
+    url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/wine/pairing"
+
+    payload = {'apiKey': API_KEY,
+               'food': food}
+
+    response = requests.get(url,
+                            params=payload,
+                            headers=headers)
+
+    data = response.json()
+    print(data)
+    return render_template('wine-pair-results.html',
+                            food=food,
+                            data=data)
+
+@app.route('/joke')
+def tell_joke():
+    """Get a random joke"""
+
+    headers = ({
+        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        "x-rapidapi-key": API_KEY
+        });
+
+    url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/jokes/random"
+
+    payload = {'apiKey': API_KEY}
+
+    response = requests.get(url,
+                            params=payload,
+                            headers=headers)
+
+    data = response.json()
+
+    return render_template('tell-joke.html',
+                           data=data)
 
 
 @app.route('/my-recipes')

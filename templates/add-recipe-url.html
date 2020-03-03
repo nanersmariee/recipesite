@@ -1,31 +1,18 @@
-{% extends 'base.html' %}
-{% block content %}
 
-<h1>i'm hungry</h1>
 
 
 <h2> {{ api_recipe_title }} </h2>
 
-    <div>
-      <img src={{ recipe_image }}>
-        <!-- <form action="/bookmark" method="POST"> -->
-
-        <form>
-          <input type="hidden" id='test-id' name="api_recipe_id" value= "{{ api_recipe_id }}">
-        </form>
-
-        <button id='bookmark'>Bookmark Me!</button>
-    </div>
-
-    <div>
-      <a href="/similar-recipes/{{ api_recipe_id }}">More Recipes Like This</a>
-    </div>
-
-     <p>
+<p>
         {{ summary }}  <a href={{ data['sourceUrl']}}><i>Source Link</i></a></h5></i>
     </p>
 
-  <ul>
+
+<div>
+      <img src={{ recipe_image }}>
+</div>
+
+<ul>
     
     <h2>Here's what you'll need:</h2>
     
@@ -43,14 +30,23 @@
         
     </div>
   </ul> 
-   <h2>Recipe Card</h2>
+
+
+  <h2>Recipe Card</h2>
 
   
 
     <li>
-        <b>Preparation + Cook Time:</b>
-        {{ readyInMinutes }} minutes
+        <b>Prep Time:</b>
+        {{ preparationMinutes }} minutes
     </li>
+    
+    <li>
+        <b>Cook Time:</b>
+        {{ cookingMinutes }} minutes
+    </li>
+
+
     <li>
         <b>Likes:</b>
         {{ likes }}
@@ -92,15 +88,4 @@
         {{ cuisine }}
     </li>
 
-<h3><a href="/nutrition/{{ api_recipe_id }}">NUTRITION</a></h3>
-
-<h3>Test Data</h3>
-
-{{ data['extendedIngredients'] }}
-
-<br>
-
-<script>
-</script> 
-
-{% endblock %}
+{{ data }}
