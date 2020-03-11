@@ -1,4 +1,4 @@
-body {     
+.login-page {     
     background-image: url("/static/images/snap-peas.jpeg");
     height: 100vh;
     background-size: cover;
@@ -21,7 +21,7 @@ body {
 .input-group-prepend span{
     width: 50px;
     background-color: #FFC312;
-    color: black;
+    color: white;
     border:0 !important;
 }
 

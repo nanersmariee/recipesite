@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>i'm hungry</h1>
-
 
 <h2> {{ api_recipe_title }} </h2>
 
@@ -25,24 +23,32 @@
         {{ summary }}  <a href={{ data['sourceUrl']}}><i>Source Link</i></a></h5></i>
     </p>
 
-  <ul>
-    
+  
     <h2>Here's what you'll need:</h2>
-    
+    <br>
     <div>
+      <div class="container">
+            <div class="row">
+
         {% for ingredient in data['extendedIngredients'] %}
           
-
-            <span>
-                <img src= 'https://spoonacular.com/cdn/ingredients_100x100/{{  ingredient['image'] }}'>
-                {{ ingredient['name'] }}            
-            </span>
+              <div class="col-3">
+                
+                  <img src= 'https://spoonacular.com/cdn/ingredients_100x100/{{  ingredient['image'] }}' style="height:100px;">
+                  <figcaption><center>{{ ingredient['name'] }}</center></figcaption>
+                
+               </div>          
+            
+          
         {% endfor %}
+        </div>
+            </div>
             
     
         
     </div>
-  </ul> 
+   <br>
+   
    <h2>Recipe Card</h2>
 
   
@@ -103,14 +109,5 @@
     </li>
 
 <h3><a href="/nutrition/{{ api_recipe_id }}">NUTRITION</a></h3>
-
-<h3>Test Data</h3>
-
-{{ data['extendedIngredients'] }}
-
-<br>
-
-<script>
-</script> 
 
 {% endblock %}
