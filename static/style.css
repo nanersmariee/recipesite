@@ -1,0 +1,19 @@
+body {     
+    background-image: url("/static/images/ingredients1.jpeg");
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+} 
+
+.container{
+    height: 100%;
+    align-content: center;
+}
+
+.card{
+    height: 370px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+}
+
