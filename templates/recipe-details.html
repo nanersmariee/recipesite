@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
+    
+      <h2><center> {{ api_recipe_title }} </center></h2>
 
-<h2> {{ api_recipe_title }} </h2>
-
-    <div>
+    <div class="recipe-name">
       <img src={{ recipe_image }}>
         <!-- <form action="/bookmark" method="POST"> -->
 
@@ -12,11 +12,11 @@
           <input type="hidden" id='test-id' name="api_recipe_id" value= "{{ api_recipe_id }}">
         </form>
 
-        <button id='bookmark'>Bookmark Me!</button>
+        
     </div>
-
+    <button id='bookmark'>Bookmark Me!</button>
     <div>
-      <a href="/similar-recipes/{{ api_recipe_id }}">More Recipes Like This</a>
+      <a href="/similar-recipes/{{ api_recipe_id }}&name={{ api_recipe_title }}">More Recipes Like This</a>
     </div>
 
      <p>
@@ -47,24 +47,29 @@
    
    <div class="container">
     <div class="d-flex justify-content-center h-100">
-      <div class="card">
+      <div class="card1 recipe-card">
         <div class="card-header">
           <h2>Recipe Card</h2>
+          <div class="recipe-stats">
+            <ul class="bulletless">
+              <li>
+                  <b>Preparation + Cook Time:</b>
+                  {{ readyInMinutes }} minutes
+              </li>
+              <li>
+                  <b>Likes:</b>
+                  {{ likes }}
+              </li>
+              <li>
+                  <b>Servings:</b>
+                  {{ serving_size }}
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div class="card-body">
-          <ul>
-              <b>Preparation + Cook Time:</b>
-              {{ readyInMinutes }} minutes
-          </ul>
-          <ul>
-              <b>Likes:</b>
-              {{ likes }}
-          </ul>
-          <ul>
-              <b>Servings:</b>
-              {{ serving_size }}
-          </ul>
+          
         
     <br>
     
@@ -107,9 +112,13 @@
 
           {% endfor %}
     </li>
+  </div>
+
+  <br>
+<footer>
 
 <h3><a href="/nutrition/{{ api_recipe_id }}">NUTRITION</a></h3>
-
+</footer>
 
 
 {% endblock %}

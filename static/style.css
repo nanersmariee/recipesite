@@ -1,9 +1,25 @@
+input:focus{
+    outline: 0 0 0 0 !important;
+    box-shadow: 0 0 0 0 !important;
+}
+
 .login-page {     
     background-image: url("/static/images/snap-peas.jpeg");
     height: 100vh;
     background-size: cover;
     background-position: center;
 } 
+
+.ingredients{
+    background-image: url("/static/images/four-tomatoes.jpeg");
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.enter-ingredients{
+    justify-content: center;
+}
 
 .container{
     height: 100%;
@@ -19,11 +35,11 @@
 }
 
 .card1{
-    height: 370px;
+    height: auto;
     margin-top: auto;
     margin-bottom: auto;
     width: 900px;
-    background-color: rgba(0,0,0,0.5) !important;
+    background-color: rgba(0,0,3,0.5) !important;
 }
 
 .input-group-prepend span{
@@ -33,12 +49,27 @@
     border:0 !important;
 }
 
-input:focus{
-    outline: 0 0 0 0 !important;
-    box-shadow: 0 0 0 0 !important;
+#navigation-wrapper{
+    display: flex;
+    justify-content: space-between;
 }
 
+ul.bulletless li{
+    list-style-type: none;
+    
+}
 
+.card1 .card-header{
+    display: flex;
+    justify-content: space-between;
+}
 
+.card1 .card-header > h2, .card1 .recipe-stats{
+    display: inline-block;
+}
 
+.recipe-name{
+    display: flex;
+    justify-content: center;
+}
 

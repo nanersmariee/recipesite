@@ -277,18 +277,15 @@ def show_nutrition(api_recipe_id):
                             api_recipe_id=api_recipe_id)
 
 
-@app.route('/similar-recipes/<api_recipe_id>')
-def get_similar_recipes(api_recipe_id):
-    
-    api_recipe_id = api_recipe_id
-    
+def get_name(api_recipe_id):
+
     headers = ({
         "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
         "x-rapidapi-key": API_KEY
         });
+
+    url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{}/information'.format(api_recipe_id)
     
-    url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{}/similar".format(api_recipe_id)
-    print(url)
 
     payload = {'apiKey': API_KEY,
                'id': api_recipe_id}
@@ -296,11 +293,58 @@ def get_similar_recipes(api_recipe_id):
     response = requests.get(url,
                             params=payload,
                             headers=headers)
+
     data = response.json()
+    
+    return data.get('title', '[NA]')
+
+@app.route('/similar-recipes/<api_recipe_id>')
+def get_similar_recipes(api_recipe_id):
+    
+    headers = ({
+        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        "x-rapidapi-key": API_KEY
+        });
+
+    info_url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{}/information'.format(api_recipe_id)
+    
+
+    payload = {'apiKey': API_KEY,
+               'id': api_recipe_id}
+
+    info_response = requests.get(info_url,
+                    params=payload,
+                    headers=headers)
+
+    info_data = info_response.json()
+    
+    api_recipe_title = info_data.get('title', '[NA]')
+    print(api_recipe_title)
+
+    
+    similar_url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/{}/similar".format(api_recipe_id)
+
+
+    similar_response = requests.get(similar_url,
+                            params=payload,
+                            headers=headers)
+    similar_data = similar_response.json()
 
     return render_template('similar-recipes.html',
-                            data=data,
-                            api_recipe_id=api_recipe_id)
+                            data=similar_data,
+                            title=api_recipe_title)
+
+
+
+
+
+
+
+
+
+
+
+    
 
 
 @app.route('/add-recipe-url-form')

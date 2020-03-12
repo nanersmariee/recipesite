@@ -7,20 +7,25 @@
 
 {% block content %}
 
+<body class="ingredients">
+    <div class="container">
+      <div class="enter-ingredients">
+        <h2>Enter Ingredient(s)</h2>
+          <div class="search-box">
+            <form action="/ingredients/search" method="GET">
+              <input type="text" name="ingredients">
+              <input type="submit" value="Look for recipes!!">
+            </form>
+          </div>
+      </div>
+  </div>
 
-<h2>Enter Ingredient(s)</h2>
-    <form action="/ingredients/search" method="GET">
-      
-      <input type="text" name="ingredients">
-
-
-      <input type="submit" value="Look for recipes!!">
     
 
 
-    </form>
+    
 
-
+</body>
 
 
 {% endblock %}

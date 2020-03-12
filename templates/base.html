@@ -13,19 +13,20 @@
           
           <h1><a href='/main-page'>THAT'S WHAT CHEESE SAID</a></h1>
 
-          <li>Hello {{ session.get('current_user_name') }}</li>
           
-          <ul>
-            <a href=/my-bookmarks/{{ session.get('current_user') }}>BOOKMARKS</a>
-          </ul>
-
-          <ul>
-            <a href=/my-recipes>MY RECIPES</a>
+          <div id="navigation-wrapper">
+          <ul class="link-container bulletless">
+            <li><a href=/my-bookmarks/{{ session.get('current_user') }}>BOOKMARKS</a></li>
+            <li><a href=/my-recipes>MY RECIPES</a></li>
           </ul>
         
-          <form action="/logout"> 
-            <button>Logout</button>
-          </form>
+          <div class="user-container">
+            <p>Hello {{ session.get('current_user_name') }}</p>
+             <form action="/logout"> 
+              <button id="logout">Logout</button>
+             </form>
+          </div>
+        </div>
         
       {% else %}
           <h1><a href="/">THAT'S WHAT CHEESE SAID</a></h1>

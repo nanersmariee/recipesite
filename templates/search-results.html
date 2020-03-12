@@ -7,19 +7,19 @@
 
 
 <h2>
-  Recipes with {{ ingredients }}
+  Recipes with "{{ ingredients }}"
 </h2>
 
 <br>
 <br>
 
-<body>
-{% for recipe in data %}
-    
-
-    <div>
+<body class="recipes">
+  
+  
+  {% for recipe in data %}
+  
       <h3>
-        <a href=/recipes/{{ recipe['id'] }}>
+        <a href="/recipes/{{ recipe['id'] }}">
           {{ recipe['title'] }}
         </a>
       </h3>
@@ -27,8 +27,6 @@
         <br>
           <h4>Likes: {{ recipe ['likes'] }}</h4>
     
-           
-    </div>
    
 <script type="text/javascript"></script>
 
