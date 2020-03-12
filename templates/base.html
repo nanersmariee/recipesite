@@ -13,7 +13,7 @@
           
           <h1><a href='/main-page'>THAT'S WHAT CHEESE SAID</a></h1>
 
-          <li>{{ session.get('current_user_name') }}</li>
+          <li>Hello {{ session.get('current_user_name') }}</li>
           
           <ul>
             <a href=/my-bookmarks/{{ session.get('current_user') }}>BOOKMARKS</a>

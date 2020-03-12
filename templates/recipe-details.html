@@ -28,44 +28,44 @@
     <br>
     <div>
       <div class="container">
-            <div class="row">
+        <div class="row">
 
-        {% for ingredient in data['extendedIngredients'] %}
+          {% for ingredient in data['extendedIngredients'] %}
           
-              <div class="col-3">
-                
-                  <img src= 'https://spoonacular.com/cdn/ingredients_100x100/{{  ingredient['image'] }}' style="height:100px;">
-                  <figcaption><center>{{ ingredient['name'] }}</center></figcaption>
-                
-               </div>          
-            
-          
-        {% endfor %}
+            <div class="col-3">
+              <figure>  
+                <center><img src= 'https://spoonacular.com/cdn/ingredients_100x100/{{  ingredient['image'] }}' style="height:100px;"></center>
+                <figcaption><center>{{ ingredient['name'] }}</center></figcaption>
+              </figure>  
+            </div>          
+          {% endfor %}
         </div>
-            </div>
-            
-    
-        
+      </div>
     </div>
+   
    <br>
    
-   <h2>Recipe Card</h2>
+   <div class="container">
+    <div class="d-flex justify-content-center h-100">
+      <div class="card">
+        <div class="card-header">
+          <h2>Recipe Card</h2>
+        </div>
 
-  
-
-    <ul>
-        <b>Preparation + Cook Time:</b>
-        {{ readyInMinutes }} minutes
-    </ul>
-    <ul>
-        <b>Likes:</b>
-        {{ likes }}
-    </ul>
-    <ul>
-        <b>Servings:</b>
-        {{ serving_size }}
-    </ul>
-  
+        <div class="card-body">
+          <ul>
+              <b>Preparation + Cook Time:</b>
+              {{ readyInMinutes }} minutes
+          </ul>
+          <ul>
+              <b>Likes:</b>
+              {{ likes }}
+          </ul>
+          <ul>
+              <b>Servings:</b>
+              {{ serving_size }}
+          </ul>
+        
     <br>
     
     
@@ -74,9 +74,9 @@
       <b>Ingredients:</b>
 {% for ingredient in data['extendedIngredients'] %}
     
-    <div>
-        <li>{{ ingredient['originalString']}}</li>
-    </div>
+          <div>
+              <li>{{ ingredient['originalString']}}</li>
+          </div>
    
 
 {% endfor %}
@@ -84,7 +84,7 @@
         Instructions</b>: {{ instructions }}
     </p>
 
-
+        </div>
   <li>
         <b>Diets:</b>
         {% for type in diet %}
@@ -109,5 +109,7 @@
     </li>
 
 <h3><a href="/nutrition/{{ api_recipe_id }}">NUTRITION</a></h3>
+
+
 
 {% endblock %}

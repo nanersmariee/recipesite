@@ -18,6 +18,14 @@
     background-color: rgba(0,0,0,0.5) !important;
 }
 
+.card1{
+    height: 370px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 900px;
+    background-color: rgba(0,0,0,0.5) !important;
+}
+
 .input-group-prepend span{
     width: 50px;
     background-color: #FFC312;
@@ -29,5 +37,8 @@ input:focus{
     outline: 0 0 0 0 !important;
     box-shadow: 0 0 0 0 !important;
 }
+
+
+
 
 
