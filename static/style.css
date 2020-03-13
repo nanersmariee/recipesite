@@ -31,7 +31,7 @@ input:focus{
     margin-top: auto;
     margin-bottom: auto;
     width: 400px;
-    background-color: rgba(0,0,0,0.5) !important;
+    background-color: rgba(255,255,240,0.5) !important;
 }
 
 .card1{
@@ -39,7 +39,7 @@ input:focus{
     margin-top: auto;
     margin-bottom: auto;
     width: 900px;
-    background-color: rgba(0,0,3,0.5) !important;
+    background-color: rgba(255,255,240,0.5) !important;
 }
 
 .input-group-prepend span{

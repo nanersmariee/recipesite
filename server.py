@@ -318,7 +318,7 @@ def get_similar_recipes(api_recipe_id):
 
     info_data = info_response.json()
     
-    api_recipe_title = info_data.get('title', '[NA]')
+    api_recipe_title = info_data.get('title')
     print(api_recipe_title)
 
     
@@ -330,21 +330,11 @@ def get_similar_recipes(api_recipe_id):
                             headers=headers)
     similar_data = similar_response.json()
 
+    print(api_recipe_title)
+
     return render_template('similar-recipes.html',
                             data=similar_data,
                             title=api_recipe_title)
-
-
-
-
-
-
-
-
-
-
-
-    
 
 
 @app.route('/add-recipe-url-form')

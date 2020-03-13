@@ -14,13 +14,20 @@
 
         
     </div>
-    <button id='bookmark'>Bookmark Me!</button>
-    <div>
-      <a href="/similar-recipes/{{ api_recipe_id }}&name={{ api_recipe_title }}">More Recipes Like This</a>
+    
+    <div class="text-center">
+      <button id='bookmark'>Bookmark Me!</button>
     </div>
+    <br>
+    <br>
+   
 
      <p>
         {{ summary }}  <a href={{ data['sourceUrl']}}><i>Source Link</i></a></h5></i>
+       <div>
+        <a href="/similar-recipes/{{ api_recipe_id }}&name={{ api_recipe_title }}">More Recipes Like This</a>
+       </div>
+
     </p>
 
   
@@ -68,28 +75,25 @@
           </div>
         </div>
 
-        <div class="card-body">
-          
-        
-    <br>
+        <div class="card-body"><br>
+          <p>
+            <b>Ingredients:</b>
+              {% for ingredient in data['extendedIngredients'] %}
     
-    
-
-    <p>
-      <b>Ingredients:</b>
-{% for ingredient in data['extendedIngredients'] %}
-    
-          <div>
-              <li>{{ ingredient['originalString']}}</li>
-          </div>
+                <div>
+                  <li>{{ ingredient['originalString']}}</li>
+                </div>
    
 
-{% endfor %}
-    <p><b>
-        Instructions</b>: {{ instructions }}
-    </p>
+              {% endfor %}
+    
 
-        </div>
+          <b>Instructions</b>: {{ instructions }}
+
+          </div>
+    </p>
+  
+
   <li>
         <b>Diets:</b>
         {% for type in diet %}
@@ -112,13 +116,22 @@
 
           {% endfor %}
     </li>
+
+    </div>
   </div>
+  </div>
+</div>
 
   <br>
-<footer>
+  <br>
 
-<h3><a href="/nutrition/{{ api_recipe_id }}">NUTRITION</a></h3>
-</footer>
+  <div class="text-center">
+    <footer>
+      <h3><a href="/nutrition/{{ api_recipe_id }}">NUTRITION</a></h3>
+    </footer>
+  </div>
+
+
 
 
 {% endblock %}
