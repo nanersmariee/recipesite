@@ -2,11 +2,13 @@
 {% block content %}
 
 
-<img src="https://spoonacular.com/recipeImages/{{ api_recipe_id }}-312x231.jpg">
+<div class="text-center">
+    <img src="https://spoonacular.com/recipeImages/{{ api_recipe_id }}-312x231.jpg">
 
-<h4><a href="/recipes/{{ api_recipe_id}}">back to recipe details</a></h4>
+    <h4><a href="/recipes/{{ api_recipe_id}}">back to recipe details</a></h4>
+</div>
 
-<h2>BAD Nutrients</h2>
+<div class="text-center">
 {% for bad in data['bad'] %}
     
     <div>
@@ -14,7 +16,7 @@
     </div>
 {% endfor %}
 
-<h2>GOOD Nutrients</h2>
+
 
 {% for good in data['good'] %}
     
@@ -22,12 +24,7 @@
       <ul><b>{{ good['title'] }}</b>:{{ good['amount']}} Percent of Daily Needs {{ good['percentOfDailyNeeds']}}</ul>
     </div>
 {% endfor %}
-
-
-{{ data }}
-
-
-
+</div>
 
 
 

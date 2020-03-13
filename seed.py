@@ -1,5 +1,5 @@
 from sqlalchemy import func
-from model import Recipe, Ingredient, Recipe_Ingredient, User
+from model import My_Recipe, Bookmark, User
 
 from model import connect_to_db, db 
 from server import app

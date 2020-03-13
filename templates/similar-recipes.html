@@ -2,18 +2,26 @@
 {% block content %}
 
 <h2>Similar Recipes to "{{ title }}"</h2>
+<br>
+<br>
+
+<h4><a href="/recipes/{{ api_recipe_id }}">back to recipe details</a></h4>
 
 {% for recipe in data  %}
 
-<div>{{recipe}}</div>
+<div class="text-center">
+    <h3><a href="/recipes/{{ recipe['id'] }}">{{ recipe['title'] }}</a><h3>
+
+    <img src="https://spoonacular.com/recipeImages/{{ recipe['id'] }}-312x231.jpg">
+</h3>
+<br>
+<br>
 
 
 
 
 
 {% endfor %}
-
-{{ data }}
 
 
 {% endblock %}

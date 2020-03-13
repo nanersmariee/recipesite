@@ -25,7 +25,7 @@
      <p>
         {{ summary }}  <a href={{ data['sourceUrl']}}><i>Source Link</i></a></h5></i>
        <div>
-        <a href="/similar-recipes/{{ api_recipe_id }}&name={{ api_recipe_title }}">More Recipes Like This</a>
+        <a href="/similar-recipes/{{ api_recipe_id }}">More Recipes Like This</a>
        </div>
 
     </p>
@@ -64,10 +64,6 @@
                   {{ readyInMinutes }} minutes
               </li>
               <li>
-                  <b>Likes:</b>
-                  {{ likes }}
-              </li>
-              <li>
                   <b>Servings:</b>
                   {{ serving_size }}
               </li>
@@ -87,43 +83,47 @@
 
               {% endfor %}
     
-
+          <br>
           <b>Instructions</b>: {{ instructions }}
 
-          </div>
+        </div>
     </p>
   
+        <div class="card-footer">
+          
+            <li>
+              <b>Diets:</b>
+                  {% for type in diet %}
+                  {{ type }}.
+                  {% endfor %}
 
-  <li>
-        <b>Diets:</b>
-        {% for type in diet %}
-        {{ type }}.
-        {% endfor %}
+            </li>
+            <li>
+                <b>Dish Type:</b>
+                  {% for type in dish_type %}
+                  {{ type }}.
+                  {% endfor %}
 
-    </li>
-     <li>
-        <b>Dish Type:</b>
-          {% for type in dish_type %}
-          {{ type }}.
-          {% endfor %}
+            </li>
+            <li>
+                  <b>Cuisines:</b>
+                    {% for type in cuisine %}
 
-    </li>
-    <li>
-        <b>Cuisines:</b>
-          {% for type in cuisine %}
+                    {{ type }}.
 
-          {{ type }}.
-
-          {% endfor %}
-    </li>
+                    {% endfor %}
+            </li>
+            <li>
+                  <b>Likes:</b>
+                  {{ likes }}
+            </li>
+          
 
     </div>
   </div>
   </div>
 </div>
 
-  <br>
-  <br>
 
   <div class="text-center">
     <footer>
