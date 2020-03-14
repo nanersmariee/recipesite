@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div>
     
       <h2><center> {{ api_recipe_title }} </center></h2>
 
@@ -36,13 +37,17 @@
     <div>
       <div class="container">
         <div class="row">
-
           {% for ingredient in data['extendedIngredients'] %}
-          
             <div class="col-3">
               <figure>  
-                <center><img src= 'https://spoonacular.com/cdn/ingredients_100x100/{{  ingredient['image'] }}' style="height:100px;"></center>
-                <figcaption><center>{{ ingredient['name'] }}</center></figcaption>
+                <center>
+                  <img src= 'https://spoonacular.com/cdn/ingredients_100x100/{{  ingredient['image'] }}' style="height:100px;">
+                </center>
+                <figcaption>
+                  <center>
+                    {{ ingredient['name'] }}
+                  </center>
+                </figcaption>
               </figure>  
             </div>          
           {% endfor %}
@@ -131,7 +136,7 @@
     </footer>
   </div>
 
-
+</div>
 
 
 {% endblock %}

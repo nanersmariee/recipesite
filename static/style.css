@@ -10,6 +10,16 @@ input:focus{
     background-position: center;
 } 
 
+hr {
+    border-top: 5px solid gray ;
+}
+
+
+#content{
+    margin: 10px;
+    font-family: palatino, linotype;
+}
+
 .ingredients{
     background-image: url("/static/images/four-tomatoes.jpeg");
     height: 100vh;

@@ -2,30 +2,52 @@
 {% block content %}
 
 
+
 <div class="text-center">
     <img src="https://spoonacular.com/recipeImages/{{ api_recipe_id }}-312x231.jpg">
 
     <h4><a href="/recipes/{{ api_recipe_id}}">back to recipe details</a></h4>
 </div>
 
-<div class="text-center">
-{% for bad in data['bad'] %}
-    
-    <div>
-      <ul><b>{{ bad['title'] }}</b>:{{ bad['amount']}} Percent of Daily Needs {{ bad['percentOfDailyNeeds']}}</ul>
+
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+      <div class="card1 recipe-card">
+        <div class="card-header">
+            <h4>Nutritional Information</h4>
+        </div>
+
+
+        <div class="card-body">
+            <div class="text-center">
+            {% for bad in data['bad'] %}
+                
+                <div>
+                  <ul><b>{{ bad['title'] }}</b>:{{ bad['amount']}} Percent of Daily Needs {{ bad['percentOfDailyNeeds']}}</ul>
+                </div>
+            {% endfor %}
+
+
+
+            {% for good in data['good'] %}
+                
+                <div>
+                  <ul><b>{{ good['title'] }}</b>:{{ good['amount']}} Percent of Daily Needs {{ good['percentOfDailyNeeds']}}</ul>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+      </div>
     </div>
-{% endfor %}
-
-
-
-{% for good in data['good'] %}
-    
-    <div>
-      <ul><b>{{ good['title'] }}</b>:{{ good['amount']}} Percent of Daily Needs {{ good['percentOfDailyNeeds']}}</ul>
-    </div>
-{% endfor %}
 </div>
 
 
 
 {% endblock %}
+
+
+
+
+
+
+        </div>

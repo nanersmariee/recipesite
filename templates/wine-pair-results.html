@@ -1,29 +1,18 @@
-<h2>Wine Pairing Results</h2>
 
-{{ data }}
+{% extends 'base.html' %}
+{% block content %}
 
-<h2>TEST</h2>
 
-{{ data['pairedWines'] }}
 
-<h2>TEST</h2>
-
+<h2>Wine Pairings to "{{ food }}"</h2>
 
 <div>
-  <b>Paired Wines</b>
-
-    {% for thing in data['pairedWines'] %}
-    <ul>{{ thing }}</ul>
-    {% endfor %}
-
-<div>
-  <b>Summary</b>
-
   {{ data['pairingText'] }}
 </div>
+<br>
 
-<div>
-  <b>Product Matches</b>
+<div class="text-center">
+  <b>Randomized Product Pick:</b>
 
   {% for thing in data['productMatches'] %}
   
@@ -31,39 +20,40 @@
     <image src="{{ thing['imageUrl'] }}">
 
   <div>
-    <b>Title:</b>
-      <ul>{{ thing['title'] }}</ul>
+    <b>{{ thing['title'] }}</b>
   </div>
 
   <div>
-    <b>Description:</b>
-    <ul>{{ thing['description'] }}</ul>
+    {{ thing['description'] }}
   </div>
 
   <div>
     <b>Price:</b>
-    <ul>{{ thing['price'] }}</ul>
+    {{ thing['price'] }}
   </div>
 
   <div>
     <b>Average Rating:</b>
-    <ul>{{ thing['averageRating'] }}</ul>
+    {{ thing['averageRating'] }}
   </div>
 
   <div>
     <b>Rating Count</b>
-    <ul>{{ thing['ratingCount'] }}</ul>
+    {{ thing['ratingCount'] }}
   </div>
 
   <div>
     <b>Score:</b>
-    <ul>{{ thing['score'] }}</ul>
+    {{ thing['score'] }}
   </div>
 
 
   <div>
     <b>Source</b>
-    <ul>{{ thing['link'] }}</ul>
+    {{ thing['link'] }}
   </div>
+</div>
 
   {% endfor %}
+
+{% endblock %}

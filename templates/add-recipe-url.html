@@ -1,4 +1,5 @@
-
+{% extends 'base.html' %}
+{% block content %}
 
 
 <h2> {{ api_recipe_title }} </h2>
@@ -14,78 +15,92 @@
 
 <ul>
     
-    <h2>Here's what you'll need:</h2>
-    
-    <div>
+  <h2>Here's what you'll need:</h2>
+  <br>
+  <div>
+    <div class="container">
+      <div class="row">
         {% for ingredient in data['extendedIngredients'] %}
-          
-
-            <span>
-                <img src= 'https://spoonacular.com/cdn/ingredients_100x100/{{  ingredient['image'] }}'>
-                {{ ingredient['name'] }}            
-            </span>
+          <div class="col-3">
+            <figure>
+              <center>
+                <img src= 'https://spoonacular.com/cdn/ingredients_100x100/{{  ingredient['image'] }}' style="height: 100px;">
+              </center>
+              <figcaption>
+                <center>
+                  {{ ingredient['name'] }}  
+                </center> 
+              </figcaption>  
+            </figure>
+          </div>       
         {% endfor %}
-            
-    
-        
+      </div>
     </div>
-  </ul> 
+  </div>
 
+  <br>
 
-  <h2>Recipe Card</h2>
-
-  
-
-    <li>
-        <b>Prep Time:</b>
-        {{ preparationMinutes }} minutes
-    </li>
+  <div class="container">
+    <div class="d-flex justify-content-center h-100">
+      <div class="card1 recipe-card">
+        <div class="card-header">
+          <h2>Recipe Card</h2>
+          <div class="recipe-stats">
+            <ul class="bulletless">
+              <li>
+                <b>Prep Time:</b>
+                {{ preparationMinutes }} minutes
+              </li>
     
-    <li>
-        <b>Cook Time:</b>
-        {{ cookingMinutes }} minutes
-    </li>
+              <li>
+                <b>Cook Time:</b>
+                {{ cookingMinutes }} minutes
+              </li>                
 
+              <li>
+                <b>Servings:</b>
+                {{ serving_size }}
+              </li>
+            </ul>
+          </div>
+        </div>
 
-    <li>
-        <b>Likes:</b>
-        {{ likes }}
-    </li>
-    <li>
-        <b>Servings:</b>
-        {{ serving_size }}
-    </li>
+        <div class="card-body"><br>
+          <p>
+            <b>Ingredients:</b>
+              {% for ingredient in data['extendedIngredients'] %}
+                <div>
+                    <ul>{{ ingredient['originalString']}}</ul>
+                </div>
+              {% endfor %}
+            <br>
+            <b>Instructions</b>: {{ instructions }}
+          </p>
+        </div>
+
+        <div class="card-footer">
+          <li>
+            <b>Diets:</b>
+              {{ diet }}
+          </li>
+          <li>
+            <b>Dish Type:</b>
+            {{ dish_type }}
+          </li>
+          <li>
+            <b>Cuisines:</b>
+            {{ cuisine }}
+          </li>
+         <li>
+          <b>Likes:</b>
+          {{ likes }}
+         </li>
+        </div>
+      </div>
+    </div>
+  </div>
+    
   
     <br>
-    
-    
 
-    <p>
-      <b>Ingredients:</b>
-{% for ingredient in data['extendedIngredients'] %}
-    
-    <div>
-        <ul>{{ ingredient['originalString']}}</ul>
-    </div>
-   
-
-{% endfor %}
-    <p><b>
-        Instructions</b>: {{ instructions }}
-    </p>
-
-
-  <li>
-        <b>Diets:</b>
-        {{ diet }}
-    </li>
-     <li>
-        <b>Dish Type:</b>
-        {{ dish_type }}
-    </li>
-    <li>
-        <b>Cuisines:</b>
-        {{ cuisine }}
-    </li>
-
-{{ data }}
+{% endblock %}

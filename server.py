@@ -16,6 +16,27 @@ app.secret_key = "adobo"
 
 API_KEY = os.environ['SPOONACULAR_KEY']
 
+@app.before_request
+def before_request_func():
+
+    headers = ({
+        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        "x-rapidapi-key": API_KEY
+        });
+
+    url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/jokes/random"
+
+    payload = {'apiKey': API_KEY}
+
+    response = requests.get(url,
+                            params=payload,
+                            headers=headers)
+
+    data = response.json()
+
+    session['joke'] = data['text']
+
+
 @app.route('/')
 def begin_at_login():
     """Login Page"""

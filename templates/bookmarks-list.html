@@ -4,22 +4,26 @@
 
 
 {% block content %}
-
+  <div>
     <h1>My Bookmarks</h1>
-      <div>
-        <ul>
-            {% for bookmark in bookmarks %}
-              <h3><a href="/recipes/{{ bookmark.api_recipe_id }}">{{ bookmark_titles[bookmark.api_recipe_id] }}</a><h3>
-                  
+      <div class="text-center">
+        <div class="d-flex justify-content-center h-100">
+          <div class="card1 recipe-card">
+            <div class="card-body">
+              <div class="text-center">
+                {% for bookmark in bookmarks %}
+                  <h3><a href="/recipes/{{ bookmark.api_recipe_id }}">{{ bookmark_titles[bookmark.api_recipe_id] }}</a></h3>
                   <img src="https://spoonacular.com/recipeImages/{{ bookmark.api_recipe_id }}-312x231.jpg">
-              <br>
-              </li>
-              <br>
-
-              
-            {% endfor %}
-        </ul>
+                  <br>
+                  <br>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+  </div>
+        
 
 {% endblock %}
 

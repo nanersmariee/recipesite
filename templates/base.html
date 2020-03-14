@@ -9,6 +9,7 @@
   </head>
   
   <body>
+    <div id=content>
     {% if 'current_user' in session %}
           
           <h1><a href='/main-page'>THAT'S WHAT CHEESE SAID</a></h1>
@@ -16,8 +17,8 @@
           
           <div id="navigation-wrapper">
           <ul class="link-container bulletless">
-            <li><a href=/my-bookmarks/{{ session.get('current_user') }}>BOOKMARKS</a></li>
-            <li><a href=/my-recipes>MY RECIPES</a></li>
+            <li><a href=/my-bookmarks/{{ session.get('current_user') }}>Bookmarks</a></li>
+            <li><a href=/my-recipes>My Recipes</a></li>
           </ul>
         
           <div class="user-container">
@@ -85,5 +86,23 @@
       }
     })
   </script>
+    </div>
+</div>
+  <hr>
+
+  <footer class="text-center">
+    "{% if 'joke' in session %}
+      {{ session.get('joke') }}"
+
+    {% endif %}
+    <br>
+    <br>
+
+  </footer>
+
+
   </body>
+
+  
+
 </html>

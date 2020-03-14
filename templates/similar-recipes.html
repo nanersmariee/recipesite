@@ -5,15 +5,26 @@
 <br>
 <br>
 
-<h4><a href="/recipes/{{ api_recipe_id }}">back to recipe details</a></h4>
 
-{% for recipe in data  %}
-
-<div class="text-center">
-    <h3><a href="/recipes/{{ recipe['id'] }}">{{ recipe['title'] }}</a><h3>
-
-    <img src="https://spoonacular.com/recipeImages/{{ recipe['id'] }}-312x231.jpg">
-</h3>
+<div>
+ 
+  {% for recipe in data  %}
+    
+      <div class="d-flex justify-content-center h-100">
+        <div class="card1 recipe-card">
+          <div class="card-body">
+            <div class="text-center">
+              <h3><a href="/recipes/{{ recipe['id'] }}">{{ recipe['title'] }}</a></h3>
+              <img src="https://spoonacular.com/recipeImages/{{ recipe['id'] }}-312x231.jpg">
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}  
+  </div>
+</div>   
 <br>
 <br>
 
@@ -21,7 +32,7 @@
 
 
 
-{% endfor %}
+
 
 
 {% endblock %}
