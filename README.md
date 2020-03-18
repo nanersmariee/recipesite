@@ -1,6 +1,5 @@
 # That's What Cheese Said
-Recipe Site
-test test test 
+Recipe site for users to search recipes by entering one or more ingredients and have access to full recipe details as well as bookmark their favorite recipes.  When viewing an individual recipe, users can view the directions and instructions as well as retrieve additional "similar recipes" by the click of a button.
 
 # Technologies
 Backend:
