@@ -1,4 +1,4 @@
-# recipesite
+# That's What Cheese Said
 Recipe Site
 test test test 
 
@@ -9,7 +9,7 @@ Python, Flask, SQLAlchemy, Jinja2
 Frontend:
 JavaScript, jQuery, HTML, CSS, Bootstrap, Jinja
 
-APIs:
+API:
 Spoonacular
 
 
